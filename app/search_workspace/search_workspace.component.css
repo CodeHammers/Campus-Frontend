@@ -1,0 +1,7 @@
+.list-item{
+    padding: 12;
+    font-size: 20;
+    text-decoration-color: white;
+    -webkit-text-fill-color: white;
+    text-align: center;
+}
