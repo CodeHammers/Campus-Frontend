@@ -1,38 +1,24 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
-import { WorkspaceService} from "./shared/services/workspace.service"
-import { Workspace } from "./shared/classes/workspace"
+import { WorkspaceService} from "../shared/services/workspace.service"
+import { Workspace } from "../shared/classes/workspace"
 
 @Component({
-    selector: "SearchW",
     moduleId: module.id,
-    templateUrl: "./search_workspace.component.html",
-    styleUrls: ["./search_workspace.component.css"],
+    templateUrl: "./workspace_detail.component.html",
+    styleUrls: ["./workspace_detail.component.css"],
     providers: [WorkspaceService]
     
     
 })
-export class SearchWorkspaceComponent implements OnInit {
+export class WorkspaceDetailComponent implements OnInit {
     
-    public myItems: Array<Workspace>;
+    public item: Workspace;
     constructor(private w_service: WorkspaceService){
-        this.w_service.getWorkspaces()    
-        .subscribe((data) => {
-            console.log("Kolo tmm  !!!");
-            console.log("Error  shit happen !!");
-            data.Result.forEach((workspace) => {
-                this.myItems.push( new Workspace(workspace.id,workspace.name) ); 
-            });
-        }, (error) => {
-            console.log("shit happen !");
-            this.myItems = [ new Workspace(1,"Ebda3"),new Workspace(2,"El madrsa") ];
-            return this.myItems;
-        });
+
     }
-    openWorkspacePage(){
-        console.log("Hello");
-    }
+   
     /* ***********************************************************
     * Use the @ViewChild decorator to get a reference to the drawer component.
     * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
