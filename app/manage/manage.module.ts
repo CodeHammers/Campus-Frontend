@@ -5,11 +5,15 @@ import { SharedModule } from "../shared/shared.module";
 import { ManageRoutingModule } from "./manage-routing.module";
 import { ManageComponent } from "./manage.component";
 
+import { NativeScriptHttpModule } from "nativescript-angular/http";
+
+
 @NgModule({
     imports: [
         NativeScriptModule,
         ManageRoutingModule,
-        SharedModule
+        SharedModule,
+        NativeScriptHttpModule
     ],
     declarations: [
         ManageComponent
