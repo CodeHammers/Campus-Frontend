@@ -9,6 +9,7 @@ const routes: Routes = [
     { path: "search", loadChildren: "./search/search.module#SearchModule" },
     { path: "featured", loadChildren: "./featured/featured.module#FeaturedModule" },
     { path: "searchWorkspace", loadChildren: "./search_workspace/search_workspace.module#SearchWorkspaceModule" },    
+    { path: "searchOrganization", loadChildren: "./search_organization/search_organization.module#SearchOrganizationModule" },        
     { path: "settings", loadChildren: "./settings/settings.module#SettingsModule" }
 ];
 

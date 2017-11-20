@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Workspace } from "../classes/workspace"
+import {Organization } from "../classes/organization"
 import { Http, Headers, Response } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 
@@ -8,15 +8,15 @@ import "rxjs/add/operator/do";
 
 
 @Injectable()
-export class WorkspaceService {
-    public items: Array<Workspace>;
+export class OrganizationService {
+    public items: Array<Organization>;
     
     private baseUrl = "https://httpbin.org/get/6565";
 
 
     constructor(private http: Http) { }
     
-    getWorkspaces(){
+    getOrganizations(){
         
         let headers = this.createRequestHeader();
         
@@ -42,7 +42,7 @@ export class WorkspaceService {
           */
     }
 
-    getWorkspace(id: number) {
+    getOrganization(id: number) {
         let headers = this.createRequestHeader();
         
         return this.http.get(this.baseUrl , {

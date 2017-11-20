@@ -1,25 +1,35 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
-import { WorkspaceService} from "../shared/services/workspace.service"
-import { Workspace } from "../shared/classes/workspace"
-import { ActivatedRoute } from "@angular/router";
+import { OrganizationService} from "./shared/services/organization.service"
+import { Organization } from "./shared/classes/organization"
 
 @Component({
     moduleId: module.id,
-    templateUrl: "./workspace_detail.component.html",
-    styleUrls: ["./workspace_detail.component.css"],
-    providers: [WorkspaceService]
+    templateUrl: "./search_organization.component.html",
+    styleUrls: ["./search_organization.component.css"],
+    providers: [OrganizationService]
     
     
 })
-export class WorkspaceDetailComponent implements OnInit {
+export class SearchOrganizationComponent implements OnInit {
     
-    public item: Workspace;
-    constructor(private w_service: WorkspaceService , private route: ActivatedRoute){
-        //w_service.getWorkspace()
+    public myItems: Array<Organization>;
+    constructor(private w_service: OrganizationService){
+        this.w_service.getOrganizations()    
+        .subscribe((data) => {
+            console.log("Kolo tmm  !!!");
+            console.log("Error  shit happen !!");
+            data.Result.forEach((organization) => {
+                this.myItems.push( new Organization(organization.id,organization.name) ); 
+            });
+        }, (error) => {
+            console.log("shit happen !");
+            this.myItems = [ new Organization(1,"Ebda3"),new Organization(2,"El madrsa") ];
+            return this.myItems;
+        });
     }
-   
+
     /* ***********************************************************
     * Use the @ViewChild decorator to get a reference to the drawer component.
     * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
@@ -33,15 +43,6 @@ export class WorkspaceDetailComponent implements OnInit {
     *************************************************************/
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        const id = +this.route.snapshot.params["id"];
-        this.w_service.getWorkspace(id)
-        .subscribe((data) => {
-            console.log("Kolo tmm  !!!");
-            this.item = new Workspace(data.Result.id,data.Result.name);
-        }, (error) => {
-            console.log("shit happen !");
-          
-        });
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {

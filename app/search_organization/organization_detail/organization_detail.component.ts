@@ -1,22 +1,22 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
-import { WorkspaceService} from "../shared/services/workspace.service"
-import { Workspace } from "../shared/classes/workspace"
+import { OrganizationService} from "../shared/services/organization.service"
+import { Organization } from "../shared/classes/organization"
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
     moduleId: module.id,
-    templateUrl: "./workspace_detail.component.html",
-    styleUrls: ["./workspace_detail.component.css"],
-    providers: [WorkspaceService]
+    templateUrl: "./organization_detail.component.html",
+    styleUrls: ["./organization_detail.component.css"],
+    providers: [OrganizationService]
     
     
 })
-export class WorkspaceDetailComponent implements OnInit {
+export class OrganizationDetailComponent implements OnInit {
     
-    public item: Workspace;
-    constructor(private w_service: WorkspaceService , private route: ActivatedRoute){
+    public item: Organization;
+    constructor(private w_service: OrganizationService , private route: ActivatedRoute){
         //w_service.getWorkspace()
     }
    
@@ -34,10 +34,10 @@ export class WorkspaceDetailComponent implements OnInit {
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
         const id = +this.route.snapshot.params["id"];
-        this.w_service.getWorkspace(id)
+        this.w_service.getOrganization(id)
         .subscribe((data) => {
             console.log("Kolo tmm  !!!");
-            this.item = new Workspace(data.Result.id,data.Result.name);
+            this.item = new Organization(data.Result.id,data.Result.name);
         }, (error) => {
             console.log("shit happen !");
           

@@ -7,7 +7,7 @@ import { WorkspaceDetailComponent } from "./workspace_detail/workspace_detail.co
 
 const routes: Routes = [
     { path: "", component: SearchWorkspaceComponent },
-    { path: "second", component: WorkspaceDetailComponent }
+    { path: ":id", component: WorkspaceDetailComponent }
 ];
 
 @NgModule({
