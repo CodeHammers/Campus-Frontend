@@ -4,6 +4,8 @@ import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { SharedModule } from "../shared/shared.module";
 import { ManageRoutingModule } from "./manage-routing.module";
 import { ManageComponent } from "./manage.component";
+import { ManageOrganizationComponent } from "./manage_organization/manage_organization.component"
+import { ManageWorkspaceComponent } from "./manage_workspace/manage_workspace.component"
 
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
@@ -16,7 +18,9 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
         NativeScriptHttpModule
     ],
     declarations: [
-        ManageComponent
+        ManageComponent,
+        ManageOrganizationComponent,
+        ManageWorkspaceComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
