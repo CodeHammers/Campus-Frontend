@@ -1,8 +1,49 @@
 <ActionBar class="action-bar">
-
-
     <Label class="action-bar-title" text="Welcome"></Label>
 </ActionBar>
 
+<!--(selectedIndexChange)="onIndexChanged($event)"-->
+<TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton>
+    <StackLayout *tabItem="{title: 'Sign In'}">
+        <!--TO-DO change Image-->
+        <Image class="m-t-30 m-b-15" src="res://campus_logo" width="80" height="80"></Image>
 
-<button text="Login"></button>
+        <!--TO-DO change css classes-->
+        <Label class="InfoLabels" text="User's Email:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Please enter your Email" autocorrect="false" keyboardType="email" text="" autocapitalizationType="none"></TextField>
+
+        <Label class="InfoLabels" text="Password:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Password" autocorrect="false" text="" secure="true"></TextField>
+
+        <Button text="Sign in" class="submit-button"></Button>
+
+    </StackLayout>
+    <StackLayout *tabItem="{title: 'Sign Up'}">
+        <!--TO-DO change Image-->
+        <Image class="m-t-30 m-b-15" src="res://campus_logo" width="80" height="80"></Image>
+
+
+        <!--TO-DO change css classes-->
+        <Label class="InfoLabels" text="User name:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Please enter your Name" autocorrect="false" text="" autocapitalizationType="words"></TextField>
+
+        <Label class="InfoLabels" text="Telephone:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Please enter your Phone number" autocorrect="false" keyboardType="Phone" text=""
+            autocapitalizationType="none"></TextField>
+
+
+        <Label class="InfoLabels" text="Email:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Please enter your Email" autocorrect="false" keyboardType="email" text="" autocapitalizationType="none"></TextField>
+
+        <Label class="InfoLabels" text="Password:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Please enter your Password" autocorrect="false" text="" secure="true"></TextField>
+
+        <Label class="InfoLabels" text="Password Check:" textWrap="true"></Label>
+        <TextField class="InputTextFields" hint="Write password again" autocorrect="false" text="" secure="true"></TextField>
+
+        <Button text="Sign up" class="submit-button"></Button>
+
+
+
+    </StackLayout>
+</TabView>
