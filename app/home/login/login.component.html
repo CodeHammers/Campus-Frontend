@@ -18,32 +18,33 @@
         <Button text="Sign in" class="submit-button"></Button>
 
     </StackLayout>
-    <StackLayout *tabItem="{title: 'Sign Up'}">
-        <!--TO-DO change Image-->
-        <Image class="m-t-30 m-b-15" src="res://campus_logo" width="80" height="80"></Image>
+    <ScrollView *tabItem="{title: 'Sign Up'}">
+        <StackLayout class="chopMargin">
+            <!--TO-DO change Image-->
+            <Image class="m-t-30 m-b-15" src="res://campus_logo" width="80" height="80"></Image>
 
 
-        <!--TO-DO change css classes-->
-        <Label class="InfoLabels" text="User name:" textWrap="true"></Label>
-        <TextField class="InputTextFields" hint="Please enter your Name" autocorrect="false" text="" autocapitalizationType="words"></TextField>
+            <!--TO-DO change css classes-->
+            <Label class="InfoLabels" text="User name:" textWrap="true"></Label>
+            <TextField class="InputTextFields" hint="Please enter your Name" autocorrect="false" text="" autocapitalizationType="words"></TextField>
 
-        <Label class="InfoLabels" text="Telephone:" textWrap="true"></Label>
-        <TextField class="InputTextFields" hint="Please enter your Phone number" autocorrect="false" keyboardType="Phone" text=""
-            autocapitalizationType="none"></TextField>
-
-
-        <Label class="InfoLabels" text="Email:" textWrap="true"></Label>
-        <TextField class="InputTextFields" hint="Please enter your Email" autocorrect="false" keyboardType="email" text="" autocapitalizationType="none"></TextField>
-
-        <Label class="InfoLabels" text="Password:" textWrap="true"></Label>
-        <TextField class="InputTextFields" hint="Please enter your Password" autocorrect="false" text="" secure="true"></TextField>
-
-        <Label class="InfoLabels" text="Password Check:" textWrap="true"></Label>
-        <TextField class="InputTextFields" hint="Write password again" autocorrect="false" text="" secure="true"></TextField>
-
-        <Button text="Sign up" class="submit-button"></Button>
+            <Label class="InfoLabels" text="Telephone:" textWrap="true"></Label>
+            <TextField class="InputTextFields" hint="Please enter your Phone number" autocorrect="false" keyboardType="Phone" text=""
+                autocapitalizationType="none"></TextField>
 
 
+            <Label class="InfoLabels" text="Email:" textWrap="true"></Label>
+            <TextField class="InputTextFields" hint="Please enter your Email" autocorrect="false" keyboardType="email" text="" autocapitalizationType="none"></TextField>
 
-    </StackLayout>
+            <Label class="InfoLabels" text="Password:" textWrap="true"></Label>
+            <TextField class="InputTextFields" hint="Please enter your Password" autocorrect="false" text="" secure="true"></TextField>
+
+            <Label class="InfoLabels" text="Password Check:" textWrap="true"></Label>
+            <TextField class="InputTextFields" hint="Write password again" autocorrect="false" text="" secure="true"></TextField>
+
+            <Button text="Sign up" class="submit-button"></Button>
+
+        </StackLayout>
+
+    </ScrollView>
 </TabView>
