@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { User } from "../shared/classses/user"
 
+import * as datePickerModule from "tns-core-modules/ui/date-picker";
+
 @Component({
     selector: "login",
     moduleId: module.id,
