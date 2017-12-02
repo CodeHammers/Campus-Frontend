@@ -1,0 +1,59 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Welcome"></Label>
+</ActionBar>
+
+<!--(selectedIndexChange)="onIndexChanged($event)"-->
+<TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton>
+    <StackLayout *tabItem="{title: 'Co-working Space'}">
+        <StackLayout orientation="horizontal" class="MiddleScreen">
+            <!--making search bar in top of screen-->
+            <TextField hint="Co-working space name" class="SearchTextField"></TextField>
+
+            <Button text="Search" icon="&#xf002;" class="submit-button">
+                <!-- ADD search icon icon="&#xf002;" -->
+            </Button>
+
+        </StackLayout>
+
+        <ListView [items]="myItems" class="page page-content" tkMainContent>
+
+            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                </StackLayout>
+
+            </ng-template>
+
+        </ListView>
+
+    </StackLayout>
+
+
+    <StackLayout *tabItem="{title: 'Student Activity'}">
+        <StackLayout orientation="horizontal" class="MiddleScreen">
+
+            <TextField hint="Student activity name" class="SearchTextField"></TextField>
+
+            <Button text="Search" icon="&#xf002;" class="submit-button">
+                <!-- ADD search icon icon="&#xf002;" -->
+            </Button>
+
+        </StackLayout>
+
+        <ListView [items]="myItems" class="page page-content" tkMainContent>
+
+            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                </StackLayout>
+
+            </ng-template>
+
+        </ListView>
+
+    </StackLayout>
+
+
+</TabView>
