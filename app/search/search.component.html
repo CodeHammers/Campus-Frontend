@@ -1,59 +1,81 @@
 <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Welcome"></Label>
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the NavigationButton as a side-drawer button in iOS is not possible, because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Search"></Label>
 </ActionBar>
 
-<!--(selectedIndexChange)="onIndexChanged($event)"-->
-<TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton>
-    <StackLayout *tabItem="{title: 'Co-working Space'}">
-        <StackLayout orientation="horizontal" class="MiddleScreen">
-            <!--making search bar in top of screen-->
-            <TextField hint="Co-working space name" class="SearchTextField"></TextField>
 
-            <Button text="Search" icon="&#xf002;" class="submit-button">
-                <!-- ADD search icon icon="&#xf002;" -->
-            </Button>
+<!--
+RadSideDrawer is a UI component part of the Progress NativeScript UI set of components.
+Learn more about the RadSideDrawer UI component and how it can be customized in this documentation article:
+http://docs.telerik.com/devtools/nativescript-ui/Controls/Angular/SideDrawer/getting-started
+The RadSideDrawer component is designed to be used as a root element and
+it shouldn't have any other siblings other than the <ActionBar> component.
+-->
+<RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+    <!--
+    Use the tkDrawerContent directive to display the content of the app drawer on this page.
+    -->
+    <StackLayout tkDrawerContent>
+        <MyDrawer [selectedPage]="'Search'"></MyDrawer>
+    </StackLayout>
+    
+    <!--
+    Use the tkMainContent directive to display the content of the page when you have an app drawer.
+    -->
+  
+    <!--(selectedIndexChange)="onIndexChanged($event)"-->
+    <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent>
+        <StackLayout *tabItem="{title: 'Co-working Space'}">
+            
+            <SearchBar hint="Search hint" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>    
+
+            <ListView [items]="myItems" class="page page-content" tkMainContent>
+
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+
+                    <StackLayout [class.odd]="odd" [class.even]="even">
+                        <Label [text]='item.name' class="list-item" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                    </StackLayout>
+
+                </ng-template>
+
+            </ListView>
 
         </StackLayout>
 
-        <ListView [items]="myItems" class="page page-content" tkMainContent>
 
-            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+        <StackLayout *tabItem="{title: 'Student Activity'}">
+ 
+            <SearchBar hint="Search hint" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>    
+                
+            <ListView [items]="myItems" class="page page-content" tkMainContent>
 
-                <StackLayout [class.odd]="odd" [class.even]="even">
-                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
-                </StackLayout>
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-            </ng-template>
+                    <StackLayout [class.odd]="odd" [class.even]="even">
+                        <Label [text]='item.name' class="list-item" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                    </StackLayout>
 
-        </ListView>
+                </ng-template>
 
-    </StackLayout>
-
-
-    <StackLayout *tabItem="{title: 'Student Activity'}">
-        <StackLayout orientation="horizontal" class="MiddleScreen">
-
-            <TextField hint="Student activity name" class="SearchTextField"></TextField>
-
-            <Button text="Search" icon="&#xf002;" class="submit-button">
-                <!-- ADD search icon icon="&#xf002;" -->
-            </Button>
+            </ListView>
 
         </StackLayout>
 
-        <ListView [items]="myItems" class="page page-content" tkMainContent>
 
-            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-
-                <StackLayout [class.odd]="odd" [class.even]="even">
-                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
-                </StackLayout>
-
-            </ng-template>
-
-        </ListView>
-
-    </StackLayout>
+    </TabView>
 
 
-</TabView>
+
+
+
+</RadSideDrawer>

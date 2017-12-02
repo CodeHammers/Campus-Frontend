@@ -18,6 +18,7 @@ import {
     remove,
     clear
 } from "application-settings";
+import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 
 
 
@@ -29,10 +30,18 @@ import {
     providers: [LoginService]
 
 })
-export class LoginComponent  {
+export class LoginComponent  implements OnInit {
     public user: User;
     public newuser: User;
     public login_service: LoginService;
+
+    ngOnInit(): void {
+        if(getString("userdata","none")!="none"){
+           
+            this.routerExtensions.navigate(["home/profile"]);            
+        }
+        //console.log("but Why?!")
+    }
 
     constructor(private ls: LoginService ,private routerExtensions: RouterExtensions){
     	//this.user = new User("Sayed@gmail.com","5odonyma3ako");

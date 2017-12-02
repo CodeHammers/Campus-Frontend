@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { getString } from "tns-core-modules/application-settings/application-settings";
 
 /* ***********************************************************
 * Keep data that is displayed in your app drawer in the MyDrawer component class.
@@ -16,9 +17,15 @@ export class MyDrawerComponent implements OnInit {
     * It is used to pass the current page title from the containing page component.
     * You can check how it is used in the "isPageSelected" function below.
     *************************************************************/
+    public email:string;
+    public name:string;
     @Input() selectedPage: string;
 
     ngOnInit(): void {
+        if(getString("userdata","none")!="none"){
+            this.email = JSON.parse( getString("userdata","none")).email 
+            this.name = JSON.parse( getString("userdata","none")).name            
+        }
         /* ***********************************************************
         * Use the MyDrawerComponent "onInit" event handler to initialize the properties data values.
         *************************************************************/
