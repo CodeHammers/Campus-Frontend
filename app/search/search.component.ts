@@ -38,23 +38,24 @@ export class SearchComponent implements OnInit {
 
         this._sideDrawerTransition = new SlideInOnTopTransition();
 
-        this.search_service.getWorkingSpaces().subscribe((res) => {
-
-            //res.json().forEach((workspace) => {
-            //    console.log(JSON.stringify(workspace));
-
-            //On adding this line there is an error happen of course
-            //this.workspaces.push(new Workspace(workspace.id, "Test", "Great"));
-            //  console.log("Bassel test");
-            //});
+        this.search_service.getWorkspaces().subscribe((res) => {
 
             console.log("Got the JSON");
-            console.log(JSON.stringify(res));
+            //rather than reteriving the data and converting it to json in service
+            //we will use the full data (headers and body)
+            //res.json() drops the json part 
+            //res["_body"] demonstrate how much you understand the 
+            //structure of the incoming data
+            //try to log res as a whole and see what is the output
+            console.log(JSON.stringify(res["_body"]));
             
             console.log("started entering aray of results");
+            //initializing the array before adding elements 
+            this.workspaces = [];
             
-            res.Result.forEach((workspace) => {
-                console.log(workspace.id);
+            res["_body"].forEach((workspace) => {
+                console.log("in loop")
+                console.log( JSON.stringify( workspace ) );
                 this.workspaces.push(new Workspace(workspace.id, workspace.address, workspace.address));
                 console.log(workspace.address);
             });
@@ -66,7 +67,7 @@ export class SearchComponent implements OnInit {
 
             console.log("SHIT HAS HAPPANED !!!!!!!!!!");
 
-            this.workspaces = [new Workspace(1, "Ebda3", " great "), new Workspace(2, "El madrsa", "not bad")];
+            //this.workspaces = [new Workspace(1, "Ebda3", " great "), new Workspace(2, "El madrsa", "not bad")];
 
         });
     }

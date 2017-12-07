@@ -62,14 +62,14 @@ export class LoginComponent  implements OnInit {
     SignIn(){
    		this.login_service.signIn(this.user)
 	    .subscribe((res) => {
-           
-            //res= res.json();
-            let message = res.data;
+            let message = res.json().data;
+            console.log(JSON.stringify( res.headers ) )
 	        console.log("reached SignIn")
 	        console.log(JSON.stringify(message))
             setString("userdata",JSON.stringify(message));
+            setString("userheaders",JSON.stringify(res.headers));
+
             this.routerExtensions.navigate(["home/profile"]);
-            
       
         }, (error) => {
             console.log("shit happen !");

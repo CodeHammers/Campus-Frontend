@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Workspace } from "../classes/workspaces";
+import { Workspace } from "../classes/workspaces"
+//import { Organization } from "../classes/organization"
 import { Http, Headers, Response } from "@angular/http";
 import { Observable } from "rxjs/Rx";
+import { getString } from "tns-core-modules/application-settings/application-settings";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
@@ -9,58 +11,33 @@ import "rxjs/add/operator/do";
 
 @Injectable()
 export class SearchService {
-    public items: Array<Workspace>;
     
-    private baseUrl = "https://ccampus.herokuapp.com/api/branches";
+    private baseUrl = "https://ccampus.herokuapp.com";
 
 
     constructor(private http: Http) { }
     
-    getOrganizations(){
-        
-        let headers = this.createRequestHeader();
-        
-        return this.http.get(this.baseUrl , {
-            headers: headers
-          })
-          .map(res => res.json())
-          /*
-          .map(data => {
-            //data.Result.forEach((workspace) => {
-              //  this.items.push( new Workspace(workspace.id,workspace.name) ); 
-            //});
-            console.log("Retreived !");
-            return this.items;
-          })
-          .catch(
-            function(error: Response){
-                console.log("shit happen !");
-                this.items = [ new Workspace(1,"Ebda3"),new Workspace(2,"El madrsa") ];
-                return this.items;
-            }
-          )
-          */
-    }
-
-    getWorkingSpaces( ) {
-
-        console.log("service called");
-        
-        let headers = this.createRequestHeader();
-        
-        return this.http.get(this.baseUrl , {
-            headers: headers
-          })
-        .map(res => res.json())
-    }
-
-    private createRequestHeader() {
+    getWorkspaces(){
         let headers = new Headers();
-        // set headers here e.g.
-        headers.append("AuthKey", "my-key");
-        headers.append("AuthToken", "my-token");
         headers.append("Content-Type", "application/json");
+        headers.append("token-type","Bearer");
 
-        return headers;
+
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if(getString("userheaders","none")!="none"){
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse( getString("userheaders","none"))["Access-Token"]   ) ;
+            headers.append("client", JSON.parse( getString("userheaders","none")).Client  );
+            headers.append("uid", JSON.parse( getString("userheaders","none")).Uid );    
+        }
+
+        //https://ccampus.herokuapp.com/api/branches
+        return this.http.get(this.baseUrl+"/api/branches" , {
+            headers: headers
+          })
+     
     }
+
 }

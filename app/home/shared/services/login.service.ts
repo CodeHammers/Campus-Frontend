@@ -21,7 +21,7 @@ export class LoginService {
       headers.append("Content-Type", "application/json");
 
      return this.http.post(this.baseUrl+"/sign_in", { email: user.email,password: user.password }, {headers:headers})
-        .map(res => res.json());
+        .map(res => res);
 
     }
 
