@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
     public workspaces: Array<Workspace>;
     public organizations: Array<Organization>;
     public search_service: SearchService;
+    public loading_data: boolean;
 
     /* ***********************************************************
 * Use the @ViewChild decorator to get a reference to the drawer component.
@@ -54,6 +55,7 @@ export class SearchComponent implements OnInit {
 
     constructor(private ss: SearchService) {
         this.search_service = ss;
+        this.loading_data = false;
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
@@ -77,9 +79,10 @@ export class SearchComponent implements OnInit {
 
         //initializing the array before adding elements 
         this.workspaces = [];
-
+        this.loading_data=true;
+        
         this.search_service.getWorkspaces(workspaceSearchName.text).subscribe((res) => {
-
+            this.loading_data=false;
             console.log("Got the JSON");
             //rather than reteriving the data and converting it to json in service
             //we will use the full data (headers and body)
@@ -118,9 +121,10 @@ export class SearchComponent implements OnInit {
         
                 //initializing the array before adding elements 
                 this.organizations = [];
+                this.loading_data = true;
         
                 this.search_service.getOrganization(organiztionSearchName.text).subscribe((res) => {
-        
+                    this.loading_data = false;
                     console.log("Got the JSON");
                     //rather than reteriving the data and converting it to json in service
                     //we will use the full data (headers and body)

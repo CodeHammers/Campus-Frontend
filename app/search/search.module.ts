@@ -5,6 +5,8 @@ import { SharedModule } from "../shared/shared.module";
 import { SearchRoutingModule } from "./search-routing.module";
 
 import { SearchComponent } from "./search.component"
+import { WorkspaceComponent } from "./workspace/workspace.component"
+
 
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
@@ -17,7 +19,8 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
         SearchRoutingModule
     ],
     declarations: [
-        SearchComponent
+        SearchComponent,
+        WorkspaceComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
