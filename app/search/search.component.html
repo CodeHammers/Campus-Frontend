@@ -35,7 +35,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent>
         <StackLayout *tabItem="{title: 'Co-working Space'}">
 
-            <SearchBar hint="Co-working space name" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>
+            <SearchBar (textChange)="searchWorkspace($event)" hint="Co-working space name" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>
 
             <ListView [items]="workspaces" class="page page-content" tkMainContent>
 
@@ -45,8 +45,8 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                         <StackLayout orientation="Horizontal">
                             <Image src= 'res://icon' width="40" height="40"></Image>
                             <StackLayout orientation="Vertical">
-                                <Label [text]='item.name' class="list-item h2 m-l-10" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
-                                <Label [text]='item.about' class="list-item h3 m-l-20" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                                <Label [text]="item.name" class="list-item h2 m-l-10" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                                <Label [text]='item.about' class="h3 m-l-20" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
@@ -60,9 +60,9 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
         <StackLayout *tabItem="{title: 'Student Activity'}">
 
-            <SearchBar hint="Student activity name" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>
+            <SearchBar (textChange)="searchOrganiztion($event)" hint="Student activity name" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>
 
-            <ListView [items]="workspaces" class="page page-content" tkMainContent>
+            <ListView [items]="organizations" class="page page-content" tkMainContent>
 
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
@@ -71,7 +71,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                                     <Image src= 'res://icon' width="40" height="40"></Image>
                                     <StackLayout orientation="Vertical">
                                         <Label [text]='item.name' class="list-item h2 m-l-10" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
-                                        <Label [text]='item.about' class="list-item h3 m-l-20" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                                        <Label [text]='item.name' class="h3 m-l-20" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
                                     </StackLayout>
                                 </StackLayout>
                     </StackLayout>
