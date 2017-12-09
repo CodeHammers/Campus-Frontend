@@ -6,6 +6,8 @@ import { ActivatedRoute } from "@angular/router";
 
 import { SearchService } from "../shared/services/search.service"
 import { Branch } from "../shared/classes/branch"
+import { Workspace } from "../shared/classes/workspaces";
+
 
 @Component({
     moduleId: module.id,
@@ -16,15 +18,16 @@ import { Branch } from "../shared/classes/branch"
 
 export class WorkspaceComponent implements OnInit {
 
+    public branches: Array<Branch>;
+    public search_service: SearchService;
+    public loading_data: boolean;
+    public workspace_id: number;
 
-public branches : Array<Branch>;
-public search_service : SearchService;
-public loading_data : boolean;
-public workspace_id : number;
-/* ***********************************************************
-* Use the @ViewChild decorator to get a reference to the drawer component.
-* It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
-*************************************************************/
+    public workSpace: Workspace;
+    /* ***********************************************************
+    * Use the @ViewChild decorator to get a reference to the drawer component.
+    * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
+    *************************************************************/
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;
@@ -33,35 +36,67 @@ public workspace_id : number;
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
     ngOnInit(): void {
-        this.workspace_id = this.route.snapshot.params["id"];        
-        console.log("ngInit started");
-        this.search_service.getWorkspaceBranches(this.workspace_id)
-        .subscribe((res) => {
-            this.loading_data=false;
-            this.branches =[];
-            console.log(JSON.stringify(res["_body"]));
+        console.log("ngInit started, the id =");
 
-            console.log("started entering aray of results");
+        this.workspace_id = this.route.snapshot.params["id"];
 
-            res["_body"].forEach((branch) => {
-                console.log("in loop")
-                console.log(JSON.stringify(branch));
-                this.branches.push(new Branch(branch.id, branch.address));
+        this.search_service.getWorkspaceInfo(this.workspace_id)
+            .subscribe((res) => {
+
+                console.log(JSON.stringify(res.json()));
+
+                console.log('got workspace info');
+
+                console.log(res.json().name);
+                console.log(res.json().about);
+
+                this.workSpace = new Workspace(res.json().id, res.json().name, res.json().about, res.json().logo);
+
+                console.log(this.workSpace.imagelink);
+
+                //this.workSpace.name = res.json().name;
+                //this.workSpace.about = res.json().about;
+                //if (res.json().logo != null)
+                //     this.workSpace.imagelink = res.json().logo;
+                // else
+                //    this.workSpace.imagelink = 'res://campus_logo_blue';
+
+                //this.workSpace.id = res.json().id;
+
+
+            }, (error) => {
+                console.log(" Network Went Down ")
             });
 
-            console.log("Retreived !");
+        console.log(this.workspace_id);
 
-        }, (error) => {
-            console.log(" Network Went Down ")
+        this.search_service.getWorkspaceBranches(this.workspace_id)
+            .subscribe((res) => {
+                this.loading_data = false;
+                this.branches = [];
+                console.log(JSON.stringify(res["_body"]));
 
-        });
+                console.log("started entering aray of results");
+
+                res["_body"].forEach((branch) => {
+                    console.log("in loop")
+                    console.log(JSON.stringify(branch));
+                    this.branches.push(new Branch(branch.id, branch.address));
+                });
+
+                console.log("Retreived !");
+
+            }, (error) => {
+                console.log(" Network Went Down ")
+
+            });
         //console.log("Changes Happened");
 
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
     constructor(private ss: SearchService, private route: ActivatedRoute) {
-       this.branches=[];
+        this.branches = [];
         this.search_service = ss;
     }
 

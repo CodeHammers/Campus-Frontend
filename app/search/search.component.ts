@@ -3,7 +3,7 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { Workspace } from "./shared/classes/workspaces";
 import { Organization } from "./shared/classes/organization";
-import {SharedModule} from "../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
 import { SearchBar } from "ui/search-bar";
 
 import { SearchService } from "./shared/services/search.service"
@@ -79,10 +79,10 @@ export class SearchComponent implements OnInit {
 
         //initializing the array before adding elements 
         this.workspaces = [];
-        this.loading_data=true;
-        
+        this.loading_data = true;
+
         this.search_service.getWorkspaces(workspaceSearchName.text).subscribe((res) => {
-            this.loading_data=false;
+            this.loading_data = false;
             console.log("Got the JSON");
             //rather than reteriving the data and converting it to json in service
             //we will use the full data (headers and body)
@@ -114,44 +114,44 @@ export class SearchComponent implements OnInit {
     }
 
     searchOrganiztion(args) {
-        
-                let organiztionSearchName = <SearchBar>args.object;
-        
-                console.log("search button pressed");
-                console.log(organiztionSearchName.text);
-        
-                //initializing the array before adding elements 
-                this.organizations = [];
-                this.loading_data = true;
-        
-                this.search_service.getOrganization(organiztionSearchName.text).subscribe((res) => {
-                    this.loading_data = false;
-                    console.log("Got the JSON");
-                    //rather than reteriving the data and converting it to json in service
-                    //we will use the full data (headers and body)
-                    //res.json() drops the json part 
-                    //res["_body"] demonstrate how much you understand the 
-                    //structure of the incoming data
-                    //try to log res as a whole and see what is the output
-                    console.log(JSON.stringify(res["_body"]));
-        
-                    console.log("started entering aray of results");
-        
-                    res["_body"].forEach((organization) => {
-                        console.log("in loop")
-                        console.log(JSON.stringify(organization));
-                        this.organizations.push(new Organization(organization.id, organization.name, organization.university, organization.logo));
-                        console.log(organization.name);
-                    });
-        
-                    console.log("Retreived !");
-                    //return this.items;
-        
-                }, (error) => {
-        
-                    console.log("SHIT HAS HAPPANED !!!!!!!!!!");
-        
-                    this.showSimple("No Internet Connection Found...");
-                });
-            }
+
+        let organiztionSearchName = <SearchBar>args.object;
+
+        console.log("search button pressed");
+        console.log(organiztionSearchName.text);
+
+        //initializing the array before adding elements 
+        this.organizations = [];
+        this.loading_data = true;
+
+        this.search_service.getOrganization(organiztionSearchName.text).subscribe((res) => {
+            this.loading_data = false;
+            console.log("Got the JSON");
+            //rather than reteriving the data and converting it to json in service
+            //we will use the full data (headers and body)
+            //res.json() drops the json part 
+            //res["_body"] demonstrate how much you understand the 
+            //structure of the incoming data
+            //try to log res as a whole and see what is the output
+            console.log(JSON.stringify(res["_body"]));
+
+            console.log("started entering aray of results");
+
+            res["_body"].forEach((organization) => {
+                console.log("in loop")
+                console.log(JSON.stringify(organization));
+                this.organizations.push(new Organization(organization.id, organization.name, organization.university, organization.logo));
+                console.log(organization.name);
+            });
+
+            console.log("Retreived !");
+            //return this.items;
+
+        }, (error) => {
+
+            console.log("SHIT HAS HAPPANED !!!!!!!!!!");
+
+            this.showSimple("No Internet Connection Found...");
+        });
+    }
 }
