@@ -9,18 +9,17 @@ import { Branch } from "../shared/classes/branch"
 
 @Component({
     moduleId: module.id,
-    templateUrl: "./workspace.component.html",
-    styleUrls: ["./workspace.component.css"],
+    templateUrl: "./branch.component.html",
+    styleUrls: ["./branch.component.css"],
     providers: [SearchService]
 })
 
-export class WorkspaceComponent implements OnInit {
+export class BranchComponent implements OnInit {
 
 
-public branches : Array<Branch>;
 public search_service : SearchService;
 public loading_data : boolean;
-public workspace_id : number;
+public branch_id : number;
 /* ***********************************************************
 * Use the @ViewChild decorator to get a reference to the drawer component.
 * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
@@ -33,36 +32,17 @@ public workspace_id : number;
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
     ngOnInit(): void {
-        this.workspace_id = this.route.snapshot.params["id"];        
+        this.branch_id = this.route.snapshot.params["id"];        
         console.log("ngInit started");
-        this.search_service.getWorkspaceBranches(this.workspace_id)
-        .subscribe((res) => {
-            this.loading_data=false;
-            this.branches =[];
-            console.log(JSON.stringify(res["_body"]));
-
-            console.log("started entering aray of results");
-
-            res["_body"].forEach((branch) => {
-                console.log("in loop")
-                console.log(JSON.stringify(branch));
-                this.branches.push(new Branch(branch.id, branch.address));
-            });
-
-            console.log("Retreived !");
-
-        }, (error) => {
-            console.log(" Network Went Down ")
-
-        });
+   
         //console.log("Changes Happened");
 
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
     constructor(private ss: SearchService, private route: ActivatedRoute) {
-       this.branches=[];
         this.search_service = ss;
+        this.loading_data =false;
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
