@@ -19,6 +19,7 @@ import {
     clear
 } from "application-settings";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import * as imagepicker from "nativescript-imagepicker";
 
 
 
@@ -57,6 +58,38 @@ export class LoginComponent  implements OnInit {
         snackbar.simple(msg, 'white', '#222').then((args) => {
              //this.set('jsonResult', JSON.stringify(args));
        })
+    }
+
+    browseForImage(){
+        let self = this;
+        let context = imagepicker.create({
+            mode: "single" // use "multiple" for multiple selection
+        });
+        context
+        .authorize()
+        .then(function() {
+            return context.present();
+        })
+        .then(function(selection) {
+            selection.forEach(function(selected) {
+                // process the selected image
+                selected.getImage({ maxWidth: 200, maxHeight: 200, aspectRatio: 'fill' })
+                .then((imageSource) => {
+                    //console.log(imageSource.toBase64String("jpg"));
+                    //this.login_service.saveImageToImgur( imageSource.toBase64String("jpg") )
+                    console.log(self);
+                    self.login_service.saveImageToImgur(imageSource.toBase64String("jpg"))
+                    .subscribe( (res)=>{
+                        console.log(JSON.stringify(res));
+                    } )
+                    //imageSrc.src = imageSource;
+                });
+            });
+            //list.items = selection;
+        }).catch(function (e) {
+            // process error
+        });
+
     }
 
     SignIn(){

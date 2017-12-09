@@ -36,4 +36,11 @@ export class LoginService {
 
     }
 
+    saveImageToImgur(base64string : string){
+        let headers = new Headers();
+        headers.append("Authorization","Client-ID af7a2d4c046b449");
+        headers.append("Content-Type","application/json");
+        return  this.http.post("https://api.imgur.com/3/image",{image: base64string},{headers: headers});
+    }
+
 }
