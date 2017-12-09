@@ -97,8 +97,9 @@ export class SearchComponent implements OnInit {
             res["_body"].forEach((workspace) => {
                 console.log("in loop")
                 console.log(JSON.stringify(workspace));
-                this.workspaces.push(new Workspace(workspace.id, workspace.name, workspace.name));
+                this.workspaces.push(new Workspace(workspace.id, workspace.name, workspace.name, workspace.logo));
                 console.log(workspace.name);
+                console.log(workspace.logo);
             });
 
             console.log("Retreived !");
@@ -139,7 +140,7 @@ export class SearchComponent implements OnInit {
                     res["_body"].forEach((organization) => {
                         console.log("in loop")
                         console.log(JSON.stringify(organization));
-                        this.organizations.push(new Workspace(organization.id, organization.name, organization.name));
+                        this.organizations.push(new Organization(organization.id, organization.name, organization.university, organization.logo));
                         console.log(organization.name);
                     });
         

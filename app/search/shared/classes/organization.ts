@@ -4,11 +4,14 @@ export class Organization {
     about: string;
 
     imagelink: string;
-    constructor(id: number,name: string, about: string){
+    constructor(id: number, name: string, about: string, imageLink: string) {
         this.id = id;
         this.name = name;
-        this.about = about;
+        this.about = about + " University";
 
-        this.imagelink = "res://campus_logo_blue";
+        if (imageLink == null)
+            this.imagelink = "res://campus_logo_blue";
+        else
+            this.imagelink = imageLink;
     }
 }
