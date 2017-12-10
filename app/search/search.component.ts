@@ -77,40 +77,53 @@ export class SearchComponent implements OnInit {
         console.log("search button pressed");
         console.log(workspaceSearchName.text);
 
-        //initializing the array before adding elements 
-        this.workspaces = [];
-        this.loading_data = true;
+        console.log();
 
-        this.search_service.getWorkspaces(workspaceSearchName.text).subscribe((res) => {
-            this.loading_data = false;
-            console.log("Got the JSON");
-            //rather than reteriving the data and converting it to json in service
-            //we will use the full data (headers and body)
-            //res.json() drops the json part 
-            //res["_body"] demonstrate how much you understand the 
-            //structure of the incoming data
-            //try to log res as a whole and see what is the output
-            console.log(JSON.stringify(res["_body"]));
+        if (workspaceSearchName.text != "") {
+            this.loading_data = true;
 
-            console.log("started entering aray of results");
+            this.workspaces = [];
 
-            res["_body"].forEach((workspace) => {
-                console.log("in loop")
-                console.log(JSON.stringify(workspace));
-                this.workspaces.push(new Workspace(workspace.id, workspace.name, workspace.name, workspace.logo));
-                console.log(workspace.name);
-                console.log(workspace.logo);
+            this.search_service.getWorkspaces(workspaceSearchName.text).subscribe((res) => {
+
+                this.workspaces = [];
+
+                this.loading_data = false;
+                console.log("Got the JSON");
+                //rather than reteriving the data and converting it to json in service
+                //we will use the full data (headers and body)
+                //res.json() drops the json part 
+                //res["_body"] demonstrate how much you understand the 
+                //structure of the incoming data
+                //try to log res as a whole and see what is the output
+                console.log(JSON.stringify(res["_body"]));
+
+                console.log("started entering aray of results");
+
+                res["_body"].forEach((workspace) => {
+                    console.log("in loop")
+                    console.log(JSON.stringify(workspace));
+                    this.workspaces.push(new Workspace(workspace.id, workspace.name, workspace.name, workspace.logo));
+                    console.log(workspace.name);
+                    console.log(workspace.logo);
+                });
+
+                console.log("Retreived !");
+                //return this.items;
+
+            }, (error) => {
+
+                console.log("SHIT HAS HAPPANED !!!!!!!!!!");
+
+                this.showSimple("No Internet Connection Found...");
             });
 
-            console.log("Retreived !");
-            //return this.items;
+        } else {
+            this.loading_data = false;
 
-        }, (error) => {
+            this.workspaces = [];
 
-            console.log("SHIT HAS HAPPANED !!!!!!!!!!");
-
-            this.showSimple("No Internet Connection Found...");
-        });
+        }
     }
 
     searchOrganiztion(args) {
@@ -120,38 +133,47 @@ export class SearchComponent implements OnInit {
         console.log("search button pressed");
         console.log(organiztionSearchName.text);
 
-        //initializing the array before adding elements 
-        this.organizations = [];
-        this.loading_data = true;
+        if (organiztionSearchName.text != "") {
+            this.loading_data = true;
+            //initializing the array before adding elements 
+            this.organizations = [];
 
-        this.search_service.getOrganization(organiztionSearchName.text).subscribe((res) => {
-            this.loading_data = false;
-            console.log("Got the JSON");
-            //rather than reteriving the data and converting it to json in service
-            //we will use the full data (headers and body)
-            //res.json() drops the json part 
-            //res["_body"] demonstrate how much you understand the 
-            //structure of the incoming data
-            //try to log res as a whole and see what is the output
-            console.log(JSON.stringify(res["_body"]));
+            this.search_service.getOrganization(organiztionSearchName.text).subscribe((res) => {
 
-            console.log("started entering aray of results");
+                this.organizations = [];
 
-            res["_body"].forEach((organization) => {
-                console.log("in loop")
-                console.log(JSON.stringify(organization));
-                this.organizations.push(new Organization(organization.id, organization.name, organization.university, organization.logo));
-                console.log(organization.name);
+                this.loading_data = false;
+                console.log("Got the JSON");
+                //rather than reteriving the data and converting it to json in service
+                //we will use the full data (headers and body)
+                //res.json() drops the json part 
+                //res["_body"] demonstrate how much you understand the 
+                //structure of the incoming data
+                //try to log res as a whole and see what is the output
+                console.log(JSON.stringify(res["_body"]));
+
+                console.log("started entering aray of results");
+
+                res["_body"].forEach((organization) => {
+                    console.log("in loop")
+                    console.log(JSON.stringify(organization));
+                    this.organizations.push(new Organization(organization.id, organization.name, organization.university, organization.logo));
+                    console.log(organization.name);
+                });
+
+                console.log("Retreived !");
+                //return this.items;
+
+            }, (error) => {
+
+                console.log("SHIT HAS HAPPANED !!!!!!!!!!");
+
+                this.showSimple("No Internet Connection Found...");
             });
+        } else {
+            this.loading_data = false;
 
-            console.log("Retreived !");
-            //return this.items;
-
-        }, (error) => {
-
-            console.log("SHIT HAS HAPPANED !!!!!!!!!!");
-
-            this.showSimple("No Internet Connection Found...");
-        });
+            this.organizations = [];
+        }
     }
 }

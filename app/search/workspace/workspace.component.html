@@ -49,13 +49,10 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
                     <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                        <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./branches', item.id]" pageTransition="flip">
-                            <StackLayout orientation="Horizontal">
-
-                                <StackLayout orientation="Vertical">
-                                    <Label text="{{ 'Branch ' + item.id + ':' }}" class="h1"></Label>
-                                    <Label [text]="item.address" class="h2 m-l-10"></Label>
-                                </StackLayout>
+                        <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./branches', item.id]">
+                            <StackLayout orientation="Vertical">
+                                <Label text="{{ 'Branch ' + (i + 1) + ':' }}" class="h2"></Label>
+                                <Label [text]="item.address" class="h3 m-l-10"></Label>
                             </StackLayout>
                         </StackLayout>
 
