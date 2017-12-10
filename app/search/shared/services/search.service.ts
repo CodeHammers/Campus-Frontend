@@ -11,100 +11,123 @@ import "rxjs/add/operator/do";
 
 @Injectable()
 export class SearchService {
-    
+
     private baseUrl = "https://ccampus.herokuapp.com";
 
     constructor(private http: Http) { }
-    
-    getWorkspaces(workspacename: string){
+
+    getWorkspaces(workspacename: string) {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("token-type","Bearer");
+        headers.append("token-type", "Bearer");
 
 
         //the header part won't change at all in all incoming services
         //you can just copy and paste 
         //those headers are for verifiying the identity of the user on the server
-        if(getString("userheaders","none")!="none"){
+        if (getString("userheaders", "none") != "none") {
             console.log("parsing ......");
-            headers.append("access-token", JSON.parse( getString("userheaders","none"))["Access-Token"]   ) ;
-            headers.append("client", JSON.parse( getString("userheaders","none")).Client  );
-            headers.append("uid", JSON.parse( getString("userheaders","none")).Uid );    
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
         }
 
         //https://ccampus.herokuapp.com/api/branches
-        return this.http.get(this.baseUrl+"/api/workspaces?name="+ workspacename, {
+        return this.http.get(this.baseUrl + "/api/workspaces?name=" + workspacename, {
             headers: headers
-          })
-     
+        })
+
     }
 
-    getWorkspaceBranches(id: number){
-     
+    getWorkspaceBranches(id: number) {
+
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("token-type","Bearer");
+        headers.append("token-type", "Bearer");
 
 
         //the header part won't change at all in all incoming services
         //you can just copy and paste 
         //those headers are for verifiying the identity of the user on the server
-        if(getString("userheaders","none")!="none"){
+        if (getString("userheaders", "none") != "none") {
             console.log("parsing ......");
-            headers.append("access-token", JSON.parse( getString("userheaders","none"))["Access-Token"]   ) ;
-            headers.append("client", JSON.parse( getString("userheaders","none")).Client  );
-            headers.append("uid", JSON.parse( getString("userheaders","none")).Uid );    
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
         }
 
         //https://ccampus.herokuapp.com/api/branches
-        return this.http.get(this.baseUrl+"/api/workspaces/"+id+"/branches", {
+        return this.http.get(this.baseUrl + "/api/workspaces/" + id + "/branches", {
             headers: headers
-          })
+        })
     }
 
-    getOrganization(organiztion: string){
+    getBranch(bId: number, wId: number) {
+
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("token-type","Bearer");
+        headers.append("token-type", "Bearer");
 
 
         //the header part won't change at all in all incoming services
         //you can just copy and paste 
         //those headers are for verifiying the identity of the user on the server
-        if(getString("userheaders","none")!="none"){
+        if (getString("userheaders", "none") != "none") {
             console.log("parsing ......");
-            headers.append("access-token", JSON.parse( getString("userheaders","none"))["Access-Token"]   ) ;
-            headers.append("client", JSON.parse( getString("userheaders","none")).Client  );
-            headers.append("uid", JSON.parse( getString("userheaders","none")).Uid );    
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
         }
 
         //https://ccampus.herokuapp.com/api/branches
-        return this.http.get(this.baseUrl+"/api/organizations?name="+ organiztion, {
+        return this.http.get(this.baseUrl + "/api/workspaces/" + wId + "/branches/" + bId, {
             headers: headers
-          })
-     
+        })
     }
 
-    getWorkspaceInfo(workspace: number){
+    getOrganization(organiztion: string) {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("token-type","Bearer");
+        headers.append("token-type", "Bearer");
 
 
         //the header part won't change at all in all incoming services
         //you can just copy and paste 
         //those headers are for verifiying the identity of the user on the server
-        if(getString("userheaders","none")!="none"){
+        if (getString("userheaders", "none") != "none") {
             console.log("parsing ......");
-            headers.append("access-token", JSON.parse( getString("userheaders","none"))["Access-Token"]   ) ;
-            headers.append("client", JSON.parse( getString("userheaders","none")).Client  );
-            headers.append("uid", JSON.parse( getString("userheaders","none")).Uid );    
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
         }
 
         //https://ccampus.herokuapp.com/api/branches
-        return this.http.get(this.baseUrl+"/api/workspaces/"+ workspace, {
+        return this.http.get(this.baseUrl + "/api/organizations?name=" + organiztion, {
             headers: headers
-          })
+        })
+
+    }
+
+    getWorkspaceInfo(workspace: number) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("token-type", "Bearer");
+
+
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }
+
+        //https://ccampus.herokuapp.com/api/branches
+        return this.http.get(this.baseUrl + "/api/workspaces/" + workspace, {
+            headers: headers
+        })
     }
 
 }

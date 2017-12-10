@@ -33,25 +33,29 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
     <!--(selectedIndexChange)="onIndexChanged($event)"-->
     <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent>
+
         <StackLayout *tabItem="{title: 'Details'}">
+
+            <image src='res://campus_logo_blue'></image>
 
         </StackLayout>
 
         <StackLayout *tabItem="{title: 'Schedule'}">
 
+            <!--Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:calendar="nativescript-pro-ui/calendar" loaded="pageLoaded">
+                <ActionBar title="RadCalendar Demo" class="action-bar" />
+                <calendar:RadCalendar id="myCalendar" eventSource="{{ events }}" />
+            </Page-->
 
         </StackLayout>
 
         <StackLayout *tabItem="{title: 'Reserve'}">
-            
-            
+
+
         </StackLayout>
-            
 
+
+        
     </TabView>
-
-
-
-
 
 </RadSideDrawer>

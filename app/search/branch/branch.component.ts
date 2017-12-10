@@ -17,13 +17,16 @@ import { Branch } from "../shared/classes/branch"
 export class BranchComponent implements OnInit {
 
 
-public search_service : SearchService;
-public loading_data : boolean;
-public branch_id : number;
-/* ***********************************************************
-* Use the @ViewChild decorator to get a reference to the drawer component.
-* It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
-*************************************************************/
+    public search_service: SearchService;
+    public loading_data: boolean;
+    public branch_id: number;
+    public workspace_id: number;
+
+    public branch: Branch;
+    /* ***********************************************************
+    * Use the @ViewChild decorator to get a reference to the drawer component.
+    * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
+    *************************************************************/
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;
@@ -32,17 +35,30 @@ public branch_id : number;
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
     ngOnInit(): void {
-        this.branch_id = this.route.snapshot.params["id"];        
+        this.branch_id = this.route.snapshot.params["id"];
+        this.workspace_id = this.route.snapshot.params["workspace_id"];
+
         console.log("ngInit started");
-   
+
         //console.log("Changes Happened");
+
+        this.ss.getBranch(this.branch_id, this.workspace_id)
+            .subscribe((res) => {
+
+                console.log(JSON.stringify(res["_body"]));
+                this.branch = new Branch(res["_body"].id, res["_body"].address);
+                this.branch.setAll( res["_body"].photos, res["_body"].number_of_rooms, res["_body"].phone, res["_body"].email);
+
+            }, (error) => {
+                console.log("Error in branch happaned");
+            });
 
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
     constructor(private ss: SearchService, private route: ActivatedRoute) {
         this.search_service = ss;
-        this.loading_data =false;
+        this.loading_data = false;
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
