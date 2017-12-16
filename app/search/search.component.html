@@ -73,11 +73,11 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
                     <StackLayout [class.odd]="odd" [class.even]="even">
-                            <StackLayout orientation="Horizontal">
+                            <StackLayout orientation="Horizontal" [nsRouterLink]="['./organization', item.id]" pageTransition="flip">
                                     <Image [src]= 'item.imagelink' width="40" height="40"></Image>
                                     <StackLayout orientation="Vertical">
-                                        <Label [text]='item.name' class="list-item h2 m-l-10" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
-                                        <Label [text]='item.about' class="h3 m-l-20" [nsRouterLink]="['.', item.id]" pageTransition="flip"></Label>
+                                        <Label [text]='item.name' class="list-item h2 m-l-10" pageTransition="flip"></Label>
+                                        <Label [text]='item.about' class="h3 m-l-20" pageTransition="flip"></Label>
                                     </StackLayout>
                                 </StackLayout>
                     </StackLayout>
