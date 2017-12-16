@@ -33,7 +33,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <StackLayout class="page page-content" tkMainContent>
         <label text="Manage Co-working Spaces"></label>
         
-        <ListView [items]="workspaces"   class="page page-content" tkMainContent>
+        <ListView [items]="workspaces"  >
             
             <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
     
@@ -48,7 +48,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
         <label text="Manage Organizations"></label>
 
         
-        <ListView [items]="organizations"   class="page page-content" tkMainContent>
+        <ListView [items]="organizations"   >
     
             <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
     

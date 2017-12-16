@@ -4,6 +4,7 @@ import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { ManageService } from "./shared/services/manage.service"
 import { Organization } from "./shared/classes/organization";
 import { Workspace } from "./shared/classes/workspace";
+import { setString } from "tns-core-modules/application-settings/application-settings";
 
 
 
@@ -22,27 +23,44 @@ export class ManageComponent implements OnInit {
     public organizations: Array<Organization>;
     
     constructor(private m_service: ManageService){
-        m_service.getManagedOrganizations()
+        m_service.getWorkspacesManagedByUser()
         .subscribe((data) => {
-            console.log("Kolo tmm  !!!");
-            data.Result.forEach((organization) => {
-                this.organizations.push( new Organization(organization.id,organization.name) ); 
-            });
-        }, (error) => {
-            console.log("shit happen !");
-            this.organizations = [ new Organization(1,"IEEE"),new Organization(2,"K-Vector") ];
-        });
-
-        m_service.getManagedWorkspaces()
-        .subscribe((data) => {
-            console.log("Kolo tmm  !!!");
-            data.Result.forEach((workspace) => {
+            console.log(JSON.stringify(data.json()));
+            //token exhange 
+            //if new token introduced ,update my token
+            if(data.headers["Access-Token"]!=""){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+            data.json().data.forEach((workspace) => {
                 this.workspaces.push( new Workspace(workspace.id,workspace.name) ); 
             });
         }, (error) => {
             console.log("shit happen !");
-            this.workspaces = [ new Workspace(1,"Magal"),new Workspace(2,"3alam khan") ];
+             console.log(error);
         });
+
+        m_service.getOrganizationsManagedByUser()
+        .subscribe((data) => {
+            console.log(JSON.stringify(data.json()));
+
+            //token exhange 
+            //if new token introduced ,update my token
+            if(data.headers["Access-Token"]!=""){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+
+            data.json().data.forEach((org) => {
+                this.organizations.push( new Workspace(org.id,org.name) ); 
+            });
+        }, (error) => {
+            console.log("shit happen !");
+             console.log(error);
+        });
+
 
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
