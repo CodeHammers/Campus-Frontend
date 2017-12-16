@@ -6,6 +6,7 @@ import { ManageRoutingModule } from "./manage-routing.module";
 import { ManageComponent } from "./manage.component";
 import { ManageOrganizationComponent } from "./manage_organization/manage_organization.component"
 import { ManageWorkspaceComponent } from "./manage_workspace/manage_workspace.component"
+import { CreateOrganizationComponent } from "./create_organization/create_organization.component"
 
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
@@ -20,7 +21,8 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
     declarations: [
         ManageComponent,
         ManageOrganizationComponent,
-        ManageWorkspaceComponent
+        ManageWorkspaceComponent,
+        CreateOrganizationComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

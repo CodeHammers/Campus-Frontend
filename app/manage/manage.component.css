@@ -9,3 +9,7 @@ Label{
     font-size: 16;
     padding: 5;
 }
+Button{
+    background-color: #337ab7;
+    color: white;
+}

@@ -1,1 +1,7 @@
-StackLayout{margin-left:30;margin-right:30;padding-bottom:15;background-color:white}Image{margin-top:5;margin-bottom:20}Button,TextField{margin-left:16;margin-right:16;margin-bottom:10}.submit-button{background-color:#337ab7;color:white;margin-top:20;font-family:Courier New;font-size:15px}.InfoLabels{color:#337ab7;font-weight:bold;font-size:18px;margin-left:35px}.InputTextFields{padding-bottom:25px;margin-bottom:75px}.chopMargin{margin:0}
+StackLayout{margin-left:30;margin-right:30;padding-bottom:15;background-color:white}
+Image{margin-top:5;margin-bottom:20}
+Button,TextField{margin-left:16;margin-right:16;margin-bottom:10}
+.submit-button{background-color:#337ab7;color:white;margin-top:20;font-family:Courier New;font-size:15px}
+.InfoLabels{color:#337ab7;font-weight:bold;font-size:18px;margin-left:35px}
+.InputTextFields{padding-bottom:25px;margin-bottom:75px}
+.chopMargin{margin:0}

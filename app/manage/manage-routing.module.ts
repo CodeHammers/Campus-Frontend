@@ -5,11 +5,15 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { ManageComponent } from "./manage.component";
 import { ManageWorkspaceComponent } from "./manage_workspace/manage_workspace.component"
 import { ManageOrganizationComponent } from "./manage_organization/manage_organization.component"
+import { CreateOrganizationComponent } from "./create_organization/create_organization.component"
+
+
 
 const routes: Routes = [
     { path: "", component: ManageComponent },
     { path: "manage_organization/:id", component: ManageOrganizationComponent },
-    { path: "manage_workspace/:id", component: ManageWorkspaceComponent }    
+    { path: "manage_workspace/:id", component: ManageWorkspaceComponent }    ,
+    { path: "create_organization",component: CreateOrganizationComponent  }
 ];
 
 @NgModule({

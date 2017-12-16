@@ -4,7 +4,7 @@ import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { ManageService } from "./shared/services/manage.service"
 import { Organization } from "./shared/classes/organization";
 import { Workspace } from "./shared/classes/workspace";
-import { setString } from "tns-core-modules/application-settings/application-settings";
+import { setString, getString } from "tns-core-modules/application-settings/application-settings";
 
 
 
@@ -28,7 +28,8 @@ export class ManageComponent implements OnInit {
             console.log(JSON.stringify(data.json()));
             //token exhange 
             //if new token introduced ,update my token
-            if(data.headers["Access-Token"]!=""){
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
                 console.log("update token");
                 console.log(JSON.stringify( data.headers ) )
                 setString("userheaders",JSON.stringify(data.headers));                
@@ -38,6 +39,7 @@ export class ManageComponent implements OnInit {
             });
         }, (error) => {
             console.log("shit happen !");
+            console.log(getString("userheaders","none"))
              console.log(error);
         });
 
@@ -47,7 +49,8 @@ export class ManageComponent implements OnInit {
 
             //token exhange 
             //if new token introduced ,update my token
-            if(data.headers["Access-Token"]!=""){
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){
                 console.log("update token");
                 console.log(JSON.stringify( data.headers ) )
                 setString("userheaders",JSON.stringify(data.headers));                
@@ -58,6 +61,7 @@ export class ManageComponent implements OnInit {
             });
         }, (error) => {
             console.log("shit happen !");
+            console.log(getString("userheaders","none"))            
              console.log(error);
         });
 

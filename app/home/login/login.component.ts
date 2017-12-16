@@ -98,10 +98,11 @@ export class LoginComponent  implements OnInit {
             let message = res.json().data;
             console.log(JSON.stringify( res.headers ) )
 	        console.log("reached SignIn")
-	        console.log(JSON.stringify(message))
+            console.log(JSON.stringify(message))
+            message["password"]=this.user.password;
             setString("userdata",JSON.stringify(message));
             setString("userheaders",JSON.stringify(res.headers));
-
+            
             this.routerExtensions.navigate(["home/profile"]);
       
         }, (error) => {
