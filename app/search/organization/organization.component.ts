@@ -37,6 +37,8 @@ export class OrganizationComponent implements OnInit {
 
         this.organiztion_id = this.route.snapshot.params["id"];
 
+        console.log(this.organiztion_id);
+
         this.search_service.getOrganizationInfo(this.organiztion_id)
             .subscribe((res) => {
 
@@ -47,7 +49,10 @@ export class OrganizationComponent implements OnInit {
                 console.log(res.json().name);
                 console.log(res.json().about);
 
-                this.organization = new Organization(res.json().id, res.json().name, res.json().about, res.json().logo);
+                this.organization = new Organization(res.json().id, res.json().name, res.json().university, res.json().description, res.json().logo);
+
+                this.organization.email = res.json().email;
+                this.organization.phone = res.json().phone;
 
                 console.log(this.organization.imagelink);
 

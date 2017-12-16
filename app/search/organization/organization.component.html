@@ -8,7 +8,7 @@
     -->
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" [text]="workSpace.name"></Label>
+    <Label class="action-bar-title" [text]="organization.name"></Label>
 </ActionBar>
 
 
@@ -36,36 +36,34 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
         <ActivityIndicator #activityIndicator busy="true" width="100" height="100" *ngIf="loading_data" class="m-t-30"></ActivityIndicator>
 
-        <Image [src]='workSpace.imagelink' width="100%" height="100"></Image>
+        <Image [src]='organization.imagelink' width="100%" height="100"></Image>
 
         <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton>
 
-            <ScrollView *tabItem="{title: 'About'}">
-                <Label [text]='workSpace.about' class="h1 m-l-10" textwrap=true></Label>
+            <ScrollView *tabItem="{title: 'Info'}">
+                <stacklayout>
+                    <Label text='Description:' class="h1 m-l-10" textwrap=true></Label>
+                    <Label [text]='organization.description' class="h2 m-l-10" textwrap=true></Label>
+
+                    <Label text='University:' class="h1 m-l-10" textwrap=true></Label>
+                    <Label [text]='organization.about' class="h2 m-l-10" textwrap=true></Label>
+
+                    <Label text='E-mail:' class="h1 m-l-10" textwrap=true></Label>
+                    <Label [text]='organization.email' class="h2 m-l-10" textwrap=true></Label>
+
+                    <Label text='Phone:' class="h1 m-l-10" textwrap=true></Label>
+                    <Label [text]='organization.phone' class="h2 m-l-10" textwrap=true></Label>
+                </stacklayout>
             </ScrollView>
 
-            <ScrollView *tabItem="{title: 'Branches'}">
-                <ListView [items]="branches" class="page page-content">
-
-                    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-
-                        <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./branches', item.id]">
-                            <StackLayout orientation="Vertical">
-                                <Label text="{{ 'Branch ' + (i + 1) + ':' }}" class="h2"></Label>
-                                <Label [text]="item.address" class="h3 m-l-10"></Label>
-                            </StackLayout>
-                        </StackLayout>
-
-                    </ng-template>
-                </ListView>
+            <ScrollView *tabItem="{title: 'Workshops'}">
+                <stacklayout>
+                    <Label [text]='organization.about' class="h1 m-l-10" textwrap=true></Label>
+                </stacklayout>
             </ScrollView>
 
         </TabView>
 
     </StackLayout>
-
-
-
-
 
 </RadSideDrawer>

@@ -6,6 +6,7 @@ import { SearchRoutingModule } from "./search-routing.module";
 
 import { SearchComponent } from "./search.component"
 import { WorkspaceComponent } from "./workspace/workspace.component"
+import { OrganizationComponent } from "./organization/organization.component"
 import { BranchComponent } from "./branch/branch.component"
 
 import { NativeScriptHttpModule } from "nativescript-angular/http";
@@ -21,7 +22,8 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
     declarations: [
         SearchComponent,
         WorkspaceComponent,
-        BranchComponent
+        BranchComponent,
+        OrganizationComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
