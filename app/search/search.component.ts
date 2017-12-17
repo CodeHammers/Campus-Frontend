@@ -157,7 +157,7 @@ export class SearchComponent implements OnInit {
                 res["_body"].forEach((organization) => {
                     console.log("in loop")
                     console.log(JSON.stringify(organization));
-                    this.organizations.push(new Organization(organization.id, organization.name, organization.university, organization.logo));
+                    this.organizations.push(new Organization(organization.id, organization.name, organization.university, "",organization.logo));
                     console.log(organization.name);
                 });
 
