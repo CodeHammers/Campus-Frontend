@@ -44,8 +44,8 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                 
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                    <StackLayout [class.odd]="odd" [class.even]="even">
-                        <StackLayout orientation="Horizontal" [nsRouterLink]="['./workspaces', item.id]" pageTransition="flip" >
+                    <StackLayout [class.odd]="odd" [class.even]="even"  [nsRouterLink]="['./workspaces', item.id]">
+                        <StackLayout orientation="Horizontal" >
                             <Image [src]= 'item.imagelink' width="40" height="40"></Image>
                             <StackLayout orientation="Vertical" >
                                 <Label [text]="item.name" class="list-item h2 m-l-10" ></Label>
@@ -66,18 +66,17 @@ it shouldn't have any other siblings other than the <ActionBar> component.
             <SearchBar (textChange)="searchOrganiztion($event)" hint="Student activity name" color="#222" textFieldBackgroundColor="#eee" textFieldHintColor="#222"></SearchBar>
 
             <ActivityIndicator #activityIndicator busy="true" width="100" height="100" *ngIf="loading_data" class="m-t-30"></ActivityIndicator>
-            
-
+        
             <ListView [items]="organizations" class="page page-content" >
 
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                    <StackLayout [class.odd]="odd" [class.even]="even">
-                            <StackLayout orientation="Horizontal" [nsRouterLink]="['./organization', item.id]" pageTransition="flip">
+                    <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./organization', item.id]" >
+                            <StackLayout orientation="Horizontal" >
                                     <Image [src]= 'item.imagelink' width="40" height="40"></Image>
                                     <StackLayout orientation="Vertical">
-                                        <Label [text]='item.name' class="list-item h2 m-l-10" pageTransition="flip"></Label>
-                                        <Label [text]='item.about' class="h3 m-l-20" pageTransition="flip"></Label>
+                                        <Label [text]='item.name' class="list-item h2 m-l-10" ></Label>
+                                        <Label [text]='item.about' class="h3 m-l-20" ></Label>
                                     </StackLayout>
                                 </StackLayout>
                     </StackLayout>

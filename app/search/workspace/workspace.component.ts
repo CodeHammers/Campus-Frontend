@@ -37,7 +37,6 @@ export class WorkspaceComponent implements OnInit {
     *************************************************************/
     ngOnInit(): void {
         console.log("ngInit started, the id =");
-
         this.workspace_id = this.route.snapshot.params["id"];
 
         this.search_service.getWorkspaceInfo(this.workspace_id)
