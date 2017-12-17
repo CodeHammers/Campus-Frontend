@@ -8,6 +8,8 @@ import { ManageOrganizationComponent } from "./manage_organization/manage_organi
 import { ManageWorkspaceComponent } from "./manage_workspace/manage_workspace.component"
 import { CreateOrganizationComponent } from "./create_organization/create_organization.component"
 
+import {NativeScriptFormsModule} from "nativescript-angular/forms"
+
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
 
@@ -16,7 +18,8 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
         NativeScriptModule,
         ManageRoutingModule,
         SharedModule,
-        NativeScriptHttpModule
+        NativeScriptHttpModule,
+        NativeScriptFormsModule
     ],
     declarations: [
         ManageComponent,

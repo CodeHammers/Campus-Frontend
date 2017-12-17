@@ -40,6 +40,7 @@ export class ManageComponent implements OnInit {
         }, (error) => {
             console.log("shit happen !");
             console.log(getString("userheaders","none"))
+            setString("userheaders","none");
              console.log(error);
         });
 
@@ -57,11 +58,12 @@ export class ManageComponent implements OnInit {
             }
 
             data.json().data.forEach((org) => {
-                this.organizations.push( new Workspace(org.id,org.name) ); 
+                this.organizations.push( new Organization(org.id,org.name) ); 
             });
         }, (error) => {
             console.log("shit happen !");
-            console.log(getString("userheaders","none"))            
+            console.log(getString("userheaders","none"))    
+            setString("userheaders","none");            
              console.log(error);
         });
 

@@ -9,7 +9,7 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Manage"></Label>
+    <Label class="action-bar-title" text="Create" style="color:white"></Label>
 </ActionBar>
 
 <!--
@@ -19,6 +19,7 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/Angular/SideDrawer/get
 The RadSideDrawer component is designed to be used as a root element and
 it shouldn't have any other siblings other than the <ActionBar> component.
 -->
+
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
     <!--
     Use the tkDrawerContent directive to display the content of the app drawer on this page.
@@ -30,8 +31,44 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <!--
     Use the tkMainContent directive to display the content of the page when you have an app drawer.
     -->
-    <StackLayout class="page page-content" tkMainContent>
-        <Label text="Hello Create"></Label>      
 
-    </StackLayout>
+    <!--
+    create_table "organizations", force: :cascade do |t|
+        t.string "name", null: false
+        t.text "description"
+        t.string "university", null: false
+        t.string "logo"
+        t.string "address", null: false
+        t.string "phone", null: false
+        t.string "email", null: false
+        t.text "event_schedule"
+        t.datetime "created_at", null: false
+        t.datetime "updated_at", null: false
+    end
+    -->
+    <ScrollView tkMainContent>
+     
+        <StackLayout  >
+            <Label text="Organization Title"  ></Label>    
+            
+            <TextField hint="title of your organization"  [(ngModel)]="org.name"   text="" ></TextField>
+            <Label text="University"  ></Label>                
+            <TextField hint="university you represent" [(ngModel)]="org.university"  text="" ></TextField>            
+            
+            <Label text="Phone" ></Label>        
+            <TextField hint="phone for anyone to reach you" [(ngModel)]="org.phone"  keyboardType="phone"  text="" ></TextField>
+            <Label text="Email"></Label>    
+            
+            <TextField hint="public email for organization" [(ngModel)]="org.email"  keyboardType="email"  text=""  ></TextField>            
+            <StackLayout orientation="horizontal" width="100%"> 
+                <Button text="Browse For Logo" (tap)="browseForImage()" ></Button>            
+                <Button text="Done" class="success_button"  (tap)="createOrganization()" ></Button>            
+                
+            </StackLayout>
+    
+        </StackLayout>
+    </ScrollView>
+
 </RadSideDrawer>
+
+<!--ListPicker [items]="unives" style="font-size:14" selectedIndex="0" ></ListPicker -->      
