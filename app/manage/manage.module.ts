@@ -7,6 +7,8 @@ import { ManageComponent } from "./manage.component";
 import { ManageOrganizationComponent } from "./manage_organization/manage_organization.component"
 import { ManageWorkspaceComponent } from "./manage_workspace/manage_workspace.component"
 import { CreateOrganizationComponent } from "./create_organization/create_organization.component"
+import { CreateWorkspaceComponent } from "./create_workspace/create_workspace.component"
+
 
 import {NativeScriptFormsModule} from "nativescript-angular/forms"
 
@@ -25,7 +27,8 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
         ManageComponent,
         ManageOrganizationComponent,
         ManageWorkspaceComponent,
-        CreateOrganizationComponent
+        CreateOrganizationComponent,
+        CreateWorkspaceComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

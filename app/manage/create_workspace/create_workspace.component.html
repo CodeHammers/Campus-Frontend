@@ -9,7 +9,7 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Manage"></Label>
+    <Label class="action-bar-title" text="Create" style="color:white"></Label>
 </ActionBar>
 
 <!--
@@ -19,6 +19,7 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/Angular/SideDrawer/get
 The RadSideDrawer component is designed to be used as a root element and
 it shouldn't have any other siblings other than the <ActionBar> component.
 -->
+
 <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
     <!--
     Use the tkDrawerContent directive to display the content of the app drawer on this page.
@@ -30,61 +31,41 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <!--
     Use the tkMainContent directive to display the content of the page when you have an app drawer.
     -->
-<!--
-	
-id	17
-name	"ieee"
-description	null
-university	"cairo"
-logo	null
-phone	"0123456"
-email	"sad1@sad.com"
-event_schedule	null
-created_at	"2017-12-17T04:06:38.764Z"
-updated_at	"2017-12-17T04:06:38.764Z"
--->
 
+    <ScrollView tkMainContent>
+     
+        <StackLayout  >
+            <TextView
+            text="*A Co-Working Space is the heart of all your branches, after you create a workspace ,you can add as many branches as you want ,or just one. " 
+            class="m-b-10" editable="false"  style="font-size:smaller"  ></TextView>
 
-    <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent>
-        <StackLayout *tabItem="{title: 'Profile'}">
-            <StackLayout  orientation="horizontal">
-                <Image  [src]="org.logo" width="150" height="150"></Image>
-                <StackLayout>
-                    <TextField text="Your Title" width="100%" [(ngModel)]="org.name"  style="margin-top:10"  class="h3" ></TextField>
-                    <TextField text="Your Email" width="100%"  [(ngModel)]="org.email"   style="margin-top:10"   class="h3 " ></TextField>
-                    <TextField text="Your Phone"  width="100%"  [(ngModel)]="org.phone"   style="margin-top:10"   class="h3 " ></TextField>
-                    
-                </StackLayout>
-              
-                
-            </StackLayout>
-            
-            <TextField text="Your Description a bunch of shit is played here, more " width="100%"  [(ngModel)]="org.desc"   class="h3 m-x-auto" ></TextField>
-            
+            <Label text="Co-Working Space Title"  ></Label>    
+            <TextField hint="title of your Co-Working Space"  [(ngModel)]="w.name"   text="" ></TextField>
+            <Label text="About"  ></Label>                
+            <TextField hint="Brief intro to what do you do" [(ngModel)]="w.about"  text="" ></TextField>            
+                        
             <StackLayout orientation="horizontal" width="100%"> 
                 <Button text="Browse For Logo" (tap)="browseForImage()" ></Button>            
-                <Button text="update" style="background-color:#337ab7;color:white"  (tap)="updateOrganization()" ></Button>            
+                <Button text="Done" class="success_button"  (tap)="createWorkspace()" ></Button>            
                 
             </StackLayout>
-        </StackLayout>
-
-
-        <StackLayout *tabItem="{title: 'Schedule'}">
-
-
-        </StackLayout>
-
-
-        <StackLayout *tabItem="{title: 'Staff'}">
             
-            
-        </StackLayout>
-
-
-    </TabView>
-
-
-
         
+             
+    
+        </StackLayout>
+    </ScrollView>
 
 </RadSideDrawer>
+
+<!--ListPicker [items]="unives" style="font-size:14" selectedIndex="0" ></ListPicker -->      
+
+<!--
+create_table "workspaces", force: :cascade do |t|
+  t.string "name", null: false
+  t.string "logo"
+  t.text "about"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end
+-->

@@ -23,9 +23,13 @@ export class ManageComponent implements OnInit {
     public organizations: Array<Organization>;
     
     constructor(private m_service: ManageService){
+
+        this.workspaces = [];
+        this.organizations = [];
+
         m_service.getWorkspacesManagedByUser()
         .subscribe((data) => {
-            console.log(JSON.stringify(data.json()));
+            console.log(JSON.stringify(data));
             //token exhange 
             //if new token introduced ,update my token
             console.log( data.headers.get("Access-Token"))
@@ -34,7 +38,9 @@ export class ManageComponent implements OnInit {
                 console.log(JSON.stringify( data.headers ) )
                 setString("userheaders",JSON.stringify(data.headers));                
             }
-            data.json().data.forEach((workspace) => {
+            data["_body"].forEach((workspace) => {
+                console.log("printing elements")
+                console.log( JSON.stringify( workspace )    )
                 this.workspaces.push( new Workspace(workspace.id,workspace.name) ); 
             });
         }, (error) => {
@@ -46,8 +52,7 @@ export class ManageComponent implements OnInit {
 
         m_service.getOrganizationsManagedByUser()
         .subscribe((data) => {
-            console.log(JSON.stringify(data.json()));
-
+            console.log(JSON.stringify(data));            
             //token exhange 
             //if new token introduced ,update my token
             console.log( data.headers.get("Access-Token"))
@@ -57,7 +62,9 @@ export class ManageComponent implements OnInit {
                 setString("userheaders",JSON.stringify(data.headers));                
             }
 
-            data.json().data.forEach((org) => {
+            data["_body"].forEach((org) => {
+                console.log("printing elements")                
+                console.log( JSON.stringify( org ) )
                 this.organizations.push( new Organization(org.id,org.name) ); 
             });
         }, (error) => {
@@ -68,6 +75,9 @@ export class ManageComponent implements OnInit {
         });
 
 
+    }
+    ontrans(id: number){
+        console.log("sent id",id)
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 

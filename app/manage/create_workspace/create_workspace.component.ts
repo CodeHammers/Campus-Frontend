@@ -3,33 +3,31 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { ManageService } from "../shared/services/manage.service"
 import * as imagepicker from "nativescript-imagepicker";
-import { Organization } from "../shared/classes/organization";
 import { setString, getString } from "tns-core-modules/application-settings/application-settings";
 import { RouterExtensions, PageRoute } from "nativescript-angular/router";
 import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { Workspace } from "../shared/classes/workspace";
 
 
 
 
 @Component({
     moduleId: module.id,
-    templateUrl: "./create_organization.component.html",
+    templateUrl: "./create_workspace.component.html",
     providers: [ManageService],
-    styleUrls: ["./create_organization.component.css"]  
+    styleUrls: ["./create_workspace.component.css"]  
 })
-export class CreateOrganizationComponent implements OnInit {
+export class CreateWorkspaceComponent implements OnInit {
     /* ****************************************1*******************
     * Use the @ViewChild decorator to get a reference to the drawer component.
     * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
     *************************************************************/
     public manage_service: ManageService;
-    public unives: Array<string>;
-    public org : Organization;
+    public w : Workspace;
     
     constructor(private ms: ManageService,private routerExtensions: RouterExtensions){
         this.manage_service =  ms;
-        this.unives = ["Cairo","Helwan","Ain Shams","Mataria","Assuit","10th ramadan","octobor","etc"];
-        this.org = new Organization(0,"");
+        this.w = new Workspace(0,"");
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
@@ -66,7 +64,7 @@ export class CreateOrganizationComponent implements OnInit {
                     .subscribe( (res)=>{
                         console.log("print link")
                         console.log( JSON.stringify( res.json()["data"]["link"]) );
-                        self.org.logo =  res.json()["data"]["link"];
+                        self.w.logo_link =  res.json()["data"]["link"];
                     } )
                     //imageSrc.src = imageSource;
                 });
@@ -86,11 +84,11 @@ export class CreateOrganizationComponent implements OnInit {
         })
     }
 
-    createOrganization(){
-        console.log( JSON.stringify( this.org ) )
+    createWorkspace(){
+        console.log( JSON.stringify( this.w ) )
         
   
-        this.manage_service.createOrganization(this.org)
+        this.manage_service.createWorkspace(this.w)
         .subscribe((data) => {
             console.log( JSON.stringify( data) );
             
