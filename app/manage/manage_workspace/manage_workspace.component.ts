@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { ManageService } from "../shared/services/manage.service"
+import { setString, getString } from "tns-core-modules/application-settings/application-settings";
 
 
 
@@ -17,10 +18,10 @@ export class ManageWorkspaceComponent implements OnInit {
     * Use the @ViewChild decorator to get a reference to the drawer component.
     * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
     *************************************************************/
-
+    public manage_service : ManageService;
     
     constructor(private m_service: ManageService){
-
+        this.manage_service = m_service;
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
@@ -31,6 +32,9 @@ export class ManageWorkspaceComponent implements OnInit {
     *************************************************************/
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
+      
+
+
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {

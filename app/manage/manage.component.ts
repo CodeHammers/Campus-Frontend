@@ -4,7 +4,7 @@ import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { ManageService } from "./shared/services/manage.service"
 import { Organization } from "./shared/classes/organization";
 import { Workspace } from "./shared/classes/workspace";
-import { setString, getString } from "tns-core-modules/application-settings/application-settings";
+import { setString, getString, setNumber } from "tns-core-modules/application-settings/application-settings";
 
 
 
@@ -21,13 +21,31 @@ export class ManageComponent implements OnInit {
     *************************************************************/
     public workspaces: Array<Workspace>;
     public organizations: Array<Organization>;
-    
+    public manage_service : ManageService;
     constructor(private m_service: ManageService){
+        this.manage_service = m_service;
+    
+
+    }
+    ontrans(id: number){
+        console.log("sent id",id)
+        setNumber("sp_id",id)
+        
+    }
+    @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
+
+    private _sideDrawerTransition: DrawerTransitionBase;
+
+    /* ***********************************************************
+    * Use the sideDrawerTransition property to change the open/close animation of the drawer.
+    *************************************************************/
+    ngOnInit(): void {
+        this._sideDrawerTransition = new SlideInOnTopTransition();
 
         this.workspaces = [];
         this.organizations = [];
 
-        m_service.getWorkspacesManagedByUser()
+        this.manage_service.getWorkspacesManagedByUser()
         .subscribe((data) => {
             console.log(JSON.stringify(data));
             //token exhange 
@@ -50,7 +68,7 @@ export class ManageComponent implements OnInit {
              console.log(error);
         });
 
-        m_service.getOrganizationsManagedByUser()
+        this.manage_service.getOrganizationsManagedByUser()
         .subscribe((data) => {
             console.log(JSON.stringify(data));            
             //token exhange 
@@ -74,20 +92,6 @@ export class ManageComponent implements OnInit {
              console.log(error);
         });
 
-
-    }
-    ontrans(id: number){
-        console.log("sent id",id)
-    }
-    @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
-
-    private _sideDrawerTransition: DrawerTransitionBase;
-
-    /* ***********************************************************
-    * Use the sideDrawerTransition property to change the open/close animation of the drawer.
-    *************************************************************/
-    ngOnInit(): void {
-        this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {

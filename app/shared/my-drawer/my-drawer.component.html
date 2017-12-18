@@ -4,7 +4,10 @@ Feel free to customize layouts and components to change how your app drawer look
 -->
 <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
     <StackLayout row="0" class="sidedrawer-header">
-        <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
+        <Image class="sidedrawer-header-image fa"  src="https://avatars3.githubusercontent.com/u/16969799?s=400&v=4"
+         height="61" width="61" style="border-radius: 30;"></Image>
+        
+        <!-- <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>  -->
         <Label class="sidedrawer-header-brand" [text]="name"></Label>
         <Label class="footnote" [text]="email"></Label>
     </StackLayout>
@@ -15,13 +18,16 @@ Feel free to customize layouts and components to change how your app drawer look
             </MyDrawerItem>
             <MyDrawerItem title="Search" route="/search" icon="&#xf002;"  [isSelected]="isPageSelected('SearchWorkspace')">
             </MyDrawerItem>
-            <MyDrawerItem title="Organization" route="/searchOrganization" icon="&#xf002;"  [isSelected]="isPageSelected('SearchOrganization')">
-            </MyDrawerItem>
+         
 
             <StackLayout class="hr-light"></StackLayout>
 
             <MyDrawerItem title="Manage" route="/manage" icon="&#xf013;" [isSelected]="isPageSelected('Manage')">
             </MyDrawerItem>
+            <MyDrawerItem title="Log out" route="" icon="&#xf007;"  [isSelected]="isPageSelected('SearchOrganization')" >
+            </MyDrawerItem>
+
+
         </StackLayout>
     </ScrollView>
 </GridLayout>

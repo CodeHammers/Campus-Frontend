@@ -3,10 +3,13 @@ import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-u
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
 import { ManageService } from "../shared/services/manage.service"
 import { Organization } from "../shared/classes/organization";
-import { setString } from "tns-core-modules/application-settings/application-settings";
+import { setString, getNumber, getString } from "tns-core-modules/application-settings/application-settings";
 import { ActivatedRoute } from "@angular/router";
 import * as imagepicker from "nativescript-imagepicker";
+import { Workshop } from "../shared/classes/workshop";
 
+import { DatePicker } from "ui/date-picker";
+import { EventData } from "data/observable";
 
 
 
@@ -23,11 +26,15 @@ export class ManageOrganizationComponent implements OnInit {
     *************************************************************/
     manage_service: ManageService;
     org: Organization;
-
+    workshops: Array<Workshop>
+    events: Array<String>
+    newWorkshop: Workshop;
 
     constructor(private m_service: ManageService,private route: ActivatedRoute){
         this.manage_service = m_service;
         this.org = new Organization(0,"");
+        this.workshops = []
+        this.newWorkshop  = new Workshop("","",1)
         
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
@@ -38,6 +45,29 @@ export class ManageOrganizationComponent implements OnInit {
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
 
+
+    onPickerLoaded(args) {
+        let datePicker = <DatePicker>args.object;
+
+        datePicker.year = 1980;
+        datePicker.month = 2;
+        datePicker.day = 9;
+        datePicker.minDate = new Date(1975, 0, 29);
+        datePicker.maxDate = new Date(2045, 4, 12);
+    }
+
+    onDateChanged(args) {
+        console.log("Date changed");
+        console.log("New value: " + args.value);
+        console.log("Old value: " + args.oldValue);
+        this.newWorkshop.date = args.value;
+    }
+    AddWorkshop(){
+        console.log("adding workshop")
+        console.log(this.newWorkshop.title)
+        console.log(this.newWorkshop.date)
+        console.log(this.newWorkshop.description)
+    }
 
     /*
     	
@@ -56,20 +86,22 @@ export class ManageOrganizationComponent implements OnInit {
     */
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        this.org.id = this.route.snapshot.params["id"];
-
-        console.log("this is how  you repay me!",this.org.id,"this is how you repay my love!")       
-        this.manage_service.getOrganization(this.org.id)
+        let id = +this.route.snapshot.params["id"];
+        id=  getNumber("sp_id",0)
+        //console.log("this is how  you repay me!",id,"this is how you repay my love!")       
+        this.manage_service.getOrganization(id)
         .subscribe((res)=>{
             console.log("retreived details successfully")
-            console.log(JSON.stringify(res["_body"]))
             res = res["_body"]
+            console.log(JSON.stringify(res))            
+            console.log()            
             this.org.name = res["name"];
             this.org.university = res["university"];
             this.org.phone = res["phone"];
             this.org.email = res["email"];
             this.org.logo = res["logo"];
             this.org.desc = res["description"]
+            this.org.id = res["id"];
             console.log("logo is heeeeeeeeeeeeeeeeerr ::")
             console.log(this.org.logo)
             if(this.org.logo == ""||this.org.logo == null)
@@ -80,6 +112,33 @@ export class ManageOrganizationComponent implements OnInit {
         },(error)=>{
 
         })        
+
+
+        this.manage_service.getWorkshopsForOrganization(6)
+        .subscribe((data) => {
+            console.log(JSON.stringify(data));
+            //token exhange 
+            //if new token introduced ,update my token
+            console.log("workshops came")
+            
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+            data["_body"].forEach((w) => {
+                console.log("printing elements")
+                console.log( JSON.stringify( w )    )
+                this.workshops.push( new Workshop(w.title,w.date,w.id) ); 
+
+            });
+        }, (error) => {
+            console.log("shit happen !");
+            console.log(getString("userheaders","none"))
+            setString("userheaders","none");
+             console.log(error);
+        });
 
     }
     updateOrganization(){

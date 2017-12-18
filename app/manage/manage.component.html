@@ -31,14 +31,18 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     Use the tkMainContent directive to display the content of the page when you have an app drawer.
     -->
     <StackLayout class="page page-content" tkMainContent>
-        <label style="font-weight:bold" text="Manage Co-working Spaces"></label>
-        
+        <TextView
+        text="Manage Co-working Spaces" 
+        style="font-weight:bold"
+        WrapText="true"
+        class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
+    
         <ListView [items]="workspaces"  >
             
             <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
     
                 <StackLayout [class.odd]="odd" [class.even]="even">
-                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['./manage_workspace', item.id]"  pageTransition="flip" ></Label>
+                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['./manage_workspace', item.id]"  ></Label>
                 </StackLayout>
     
             </ng-template>
@@ -47,7 +51,11 @@ it shouldn't have any other siblings other than the <ActionBar> component.
         
         <Button text="Create New"  [nsRouterLink]="['./create_workspace']"></Button>
 
-        <label style="font-weight:bold" text="Manage Organizations"></label>
+        <TextView
+        text="Manage Organizations"
+        style="font-weight:bold"
+        WrapText="true"
+        class="m-b-5 m-t-15" editable="false"  style="font-size:medium"  ></TextView>
 
         
         <ListView [items]="organizations"   >

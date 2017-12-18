@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { getString } from "tns-core-modules/application-settings/application-settings";
+import { getString, setString } from "tns-core-modules/application-settings/application-settings";
 
 /* ***********************************************************
 * Keep data that is displayed in your app drawer in the MyDrawer component class.
@@ -31,6 +31,10 @@ export class MyDrawerComponent implements OnInit {
         *************************************************************/
     }
 
+    logout(){
+        console.log("logged out sucessfully")
+        setString("userdata","none");
+    }
     /* ***********************************************************
     * The "isPageSelected" function is bound to every navigation item on the <MyDrawerItem>.
     * It is used to determine whether the item should have the "selected" class.

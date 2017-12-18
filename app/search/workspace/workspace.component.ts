@@ -46,8 +46,8 @@ export class WorkspaceComponent implements OnInit {
 
                 console.log('got workspace info');
 
-                console.log(res.json().name);
-                console.log(res.json().about);
+                //console.log(res.json().name);
+                //console.log(res.json().about);
 
                 this.workSpace = new Workspace(res.json().id, res.json().name, res.json().about, res.json().logo);
 

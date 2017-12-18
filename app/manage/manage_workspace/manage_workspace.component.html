@@ -32,7 +32,23 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     -->
     <StackLayout class="page page-content" tkMainContent>
 
-      <label text="Managing Working Space"></label>
+        <TextView
+        text="Branches" 
+        style="font-weight:bold"
+        WrapText="true"
+        class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
+
+
+        <ListView [items]="branches" >
+            <ng-template let-item="item" let-odd="odd" let-even="even">
+              <StackLayout>
+                <Label [text]="item.title" ></Label>
+                
+              </StackLayout>
+            </ng-template>
+        </ListView>
+
+        <Button text="Add " style="background-color:#337ab7;color:white"></Button>
         
 
     </StackLayout>

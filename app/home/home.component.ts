@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition } from "nativescript-pro-ui/sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-pro-ui/sidedrawer/angular";
+import { getString, setString } from "tns-core-modules/application-settings/application-settings";
+import { RouterExtensions, PageRoute } from "nativescript-angular/router";
+
+
 
 @Component({
     selector: "Home",
@@ -21,10 +25,19 @@ export class HomeComponent implements OnInit {
     *************************************************************/
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
+        console.log(getString("userdata","none"))
+        //setString("userdata","none")
+        if(getString("userdata","none")=="none"){
+            console.log("no user data found")
+             this.routerExtensions.navigate(["home/login"]);            
+         }
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
+    }
+    constructor(private routerExtensions: RouterExtensions){
+
     }
 
     /* ***********************************************************

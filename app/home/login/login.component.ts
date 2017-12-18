@@ -37,14 +37,16 @@ export class LoginComponent  implements OnInit {
     public login_service: LoginService;
 
     ngOnInit(): void {
-        if(getString("userdata","none")!="none"){
-           
-            this.routerExtensions.navigate(["home/profile"]);            
-        }
+     
         //console.log("but Why?!")
     }
 
     constructor(private ls: LoginService ,private routerExtensions: RouterExtensions){
+       // if(getString("userdata","none")!="none"){
+            
+         //    this.routerExtensions.navigate(["home/profile"]);            
+         //}
+         setString("userdata","none");
     	//this.user = new User("Sayed@gmail.com","5odonyma3ako");
         this.user = new User("","");
         this.newuser = new User("","");

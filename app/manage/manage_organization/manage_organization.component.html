@@ -9,7 +9,7 @@
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Manage"></Label>
+    <Label class="action-bar-title" text="Manage" style="color:white"></Label>
 </ActionBar>
 
 <!--
@@ -59,7 +59,7 @@ updated_at	"2017-12-17T04:06:38.764Z"
                 
             </StackLayout>
             
-            <TextField text="Your Description a bunch of shit is played here, more " width="100%"  [(ngModel)]="org.desc"   class="h3 m-x-auto" ></TextField>
+            <TextField text="Your Description a bunch of shit is played here, more " height="100px" width="100%"  [(ngModel)]="org.desc"   class="h3 m-x-auto" ></TextField>
             
             <StackLayout orientation="horizontal" width="100%"> 
                 <Button text="Browse For Logo" (tap)="browseForImage()" ></Button>            
@@ -72,12 +72,78 @@ updated_at	"2017-12-17T04:06:38.764Z"
         <StackLayout *tabItem="{title: 'Schedule'}">
 
 
+            <TextView
+            text="Workshops" 
+            style="font-weight:bold"
+            WrapText="true"
+            class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
+
+            <ListView [items]="workshops"  class="m-r-9 m-l-9" >
+                <ng-template let-item="item" let-odd="odd" let-even="even" >
+                    <DockLayout stretchLastChild="true"  class="m-12" >
+                            <StackLayout   dock="left" width="80%"  > 
+                                    <Label  style="font-size:small;color:#222;font-weight:normal"  [text]="item.title"></Label>
+                                    <Label  style="font-size:smaller;color:#222;font-weight:normal"  class="m-l-25" [text]="item.date"></Label>
+                                    
+                            </StackLayout>
+                            <Button dock="right"  width="20%"  text="End" ></Button>
+                    </DockLayout>
+                    
+                </ng-template>
+            </ListView>
+            <StackLayout class="hr-light"></StackLayout>
+            <TextField hint="Title" [(ngModel)]="newWorkshop.title"></TextField>
+            <TextField hint="Description" [(ngModel)]="newWorkshop.description"></TextField>
+
+            <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"  verticalAlignment="center"></DatePicker>
+
+                        
+            <Button text="Add" style="background-color:#337ab7;color:white" (tap)="AddWorkshop()"  ></Button>            
+            
+            
+            <TextView
+            text="Events" 
+            style="font-weight:bold"
+            class="m-b-10" editable="false"  style="font-size:medium"  ></TextView>
+
+            <ListView [items]="events"  >
+                    <ng-template let-item="item" let-odd="odd" let-even="even">
+                        <DockLayout stretchLastChild="true">
+                                <Label  dock="left"  [text]="item"></Label>
+                                <Button dock="right"  width="20%"   text="End" ></Button>
+                        </DockLayout>
+                        
+                    </ng-template>
+            </ListView>
+
+            <Button text="Add" style="background-color:#337ab7;color:white"  ></Button>            
+            
         </StackLayout>
 
 
         <StackLayout *tabItem="{title: 'Staff'}">
             
-            
+            <TextView
+            text="Current Staff Members" 
+            style="font-weight:bold"
+            WrapText="true"
+            class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
+
+
+            <ListView [items]="source" >
+                <ng-template let-item="item" let-odd="odd" let-even="even">
+                    <StackLayout>
+                    <Label [text]="item"></Label>
+                    
+                    </StackLayout>
+                </ng-template>
+            </ListView>
+            <StackLayout orientation="horizontal">
+                    <TextField hint="enter user gmail" text=""></TextField>
+                    <Button text="Grant Access" > </Button>                        
+            </StackLayout>
+                
+
         </StackLayout>
 
 
