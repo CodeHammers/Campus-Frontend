@@ -127,11 +127,12 @@ export class SearchComponent implements OnInit {
 
         
         this.loading_data = true;
-        //initializing the array before adding elements 
-        this.organizations = [];
+        
 
         this.search_service.getOrganization(organiztionSearchName.text).subscribe((res) => {
 
+            //initializing the array before adding elements 
+            this.organizations = [];
 
             this.loading_data = false;
             console.log("Got the JSON");

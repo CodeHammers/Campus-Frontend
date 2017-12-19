@@ -6,6 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { SearchService } from "../shared/services/search.service"
 import { Organization } from "../shared/classes/organization";
+import { Workshop } from "../shared/classes/workshop";
 
 
 @Component({
@@ -19,6 +20,8 @@ export class OrganizationComponent implements OnInit {
 
     public search_service: SearchService;
     public organiztion_id: number;
+
+    public workshops: Array<Workshop>;
 
     public organization: Organization;
     /* ***********************************************************
@@ -56,15 +59,24 @@ export class OrganizationComponent implements OnInit {
 
                 console.log(this.organization.imagelink);
 
-                //this.workSpace.name = res.json().name;
-                //this.workSpace.about = res.json().about;
-                //if (res.json().logo != null)
-                //     this.workSpace.imagelink = res.json().logo;
-                // else
-                //    this.workSpace.imagelink = 'res://campus_logo_blue';
 
-                //this.workSpace.id = res.json().id;
+            }, (error) => {
+                console.log(" Network Went Down ")
+            });
 
+            
+        this.search_service.getWokshops(this.organiztion_id)
+            .subscribe((res) => {
+
+                this.workshops = [];
+
+                res["_body"].forEach((workshop) => {
+                    console.log("in loop")
+                    console.log(JSON.stringify(workshop));
+                    this.workshops.push(new Workshop(workshop.id, workshop.title, workshop.description, workshop.date, workshop.time));
+                    console.log(workshop.title);
+                    console.log(workshop.description);
+                });
 
             }, (error) => {
                 console.log(" Network Went Down ")

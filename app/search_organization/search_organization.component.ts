@@ -19,7 +19,6 @@ export class SearchOrganizationComponent implements OnInit {
         this.w_service.getOrganizations()    
         .subscribe((data) => {
             console.log("Kolo tmm  !!!");
-            console.log("Error  shit happen !!");
             data.Result.forEach((organization) => {
                 this.myItems.push( new Organization(organization.id,organization.name) ); 
             });

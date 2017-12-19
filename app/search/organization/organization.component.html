@@ -42,24 +42,41 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
             <ScrollView *tabItem="{title: 'Info'}">
                 <stacklayout>
-                    <Label text='Description:' class="h1 m-l-10" textwrap=true></Label>
-                    <Label [text]='organization.description' class="h2 m-l-10" textwrap=true></Label>
+                    <Label text='Description:' class="h2 m-l-10" style="font-weight: bold" textwrap=true></Label>
+                    <Label [text]='organization.description' class="h3 m-l-10" textwrap=true></Label>
 
-                    <Label text='University:' class="h1 m-l-10" textwrap=true></Label>
-                    <Label [text]='organization.about' class="h2 m-l-10" textwrap=true></Label>
+                    <Label text='University:' class="h2 m-l-10" style="font-weight: bold" textwrap=true></Label>
+                    <Label [text]='organization.about' class="h3 m-l-10" textwrap=true></Label>
 
-                    <Label text='E-mail:' class="h1 m-l-10" textwrap=true></Label>
-                    <Label [text]='organization.email' class="h2 m-l-10" textwrap=true></Label>
+                    <Label text='E-mail:' class="h2 m-l-10" style="font-weight: bold" textwrap=true></Label>
+                    <Label [text]='organization.email' class="h3 m-l-10" textwrap=true></Label>
 
-                    <Label text='Phone:' class="h1 m-l-10" textwrap=true></Label>
-                    <Label [text]='organization.phone' class="h2 m-l-10" textwrap=true></Label>
+                    <Label text='Phone:' class="h2 m-l-10" style="font-weight: bold" textwrap=true></Label>
+                    <Label [text]='organization.phone' class="h3 m-l-10" textwrap=true></Label>
                 </stacklayout>
             </ScrollView>
 
             <ScrollView *tabItem="{title: 'Workshops'}">
-                <stacklayout>
-                    <Label [text]='organization.about' class="h1 m-l-10" textwrap=true></Label>
-                </stacklayout>
+
+                <ListView [items]="workshops" class="page page-content">
+
+                    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+
+                        <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./workspaces', item.id]">
+                            <StackLayout orientation="Horizontal">
+                                <Image [src]='item.imagelink' width="40" height="40"></Image>
+                                <StackLayout orientation="Vertical">
+                                    <Label [text]="item.title" class="h2" style="font-weight: bold"></Label>
+                                    <Label [text]='item.description' class="h3 m-l-10"></Label>
+                                    <Label [text]='item.date' class="h3 m-l-10"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+
+                    </ng-template>
+
+                </ListView>
+
             </ScrollView>
 
         </TabView>
