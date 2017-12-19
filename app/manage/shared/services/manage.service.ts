@@ -445,6 +445,27 @@ branch_id	15
     }
 
 
+    delete_workshop(id: number,b_id:number){
+        console.log("deleting workshop")
+        
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }   
+        
+        return this.http.delete(this.baseUrl+"/api/organizations/"+ b_id+ "/workshops/"+id,{headers: headers});
+        
+
+    }
+
+
     
 
 }

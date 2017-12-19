@@ -109,7 +109,7 @@ updated_at	"2017-12-17T04:06:38.764Z"
                                             <Label  style="font-size:smaller;color:#222;font-weight:normal"  class="m-l-25" [text]="item.date"></Label>
                                             
                                     </StackLayout>
-                                    <Button dock="right"  width="20%"  text="End" ></Button>
+                                    <Button dock="right"  width="20%"  text="End" (tap)="deleteWorkshop(item.id)" ></Button>
                             </DockLayout>
                             
                         </ng-template>

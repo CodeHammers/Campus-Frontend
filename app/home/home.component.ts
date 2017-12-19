@@ -9,11 +9,16 @@ elementRegistryModule.registerElement("CardView", () => require("nativescript-ca
 
 import { User } from "./shared/classes/user";
 
+import { LoginService} from "./shared/services/login.service"
+
+
 @Component({
     selector: "Home",
     moduleId: module.id,
     templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.css"]
+    styleUrls: ["./home.component.css"],
+    providers: [LoginService]
+    
 })
 export class HomeComponent implements OnInit{
     /* ***********************************************************
@@ -25,7 +30,8 @@ export class HomeComponent implements OnInit{
     private _sideDrawerTransition: DrawerTransitionBase;
 
     public user: User;
-
+    public pass : string;
+    public login_service : LoginService;
     /* ***********************************************************
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
@@ -38,20 +44,35 @@ export class HomeComponent implements OnInit{
              this.routerExtensions.navigate(["home/login"]);            
          }
 
-        //let res: JSON;
-        //res = JSON.parse(getString("userdata","none"));
 
-        //this.user = new User(res.json().email ,res.json().password,res.json().password);
          
-        //console.log( res.stringify.toString() );
+        
+        let res = JSON.parse(getString("userdata","none"));
+        this.user = new User(res["email"] ,res["password"],res["password"]);
+         
+        console.log( JSON.stringify(this.user) );
 
+    }
+
+    updatePassword(){
+        let id = JSON.parse(getString("userdata","none"))["id"]
+        this.login_service.updatePassword(id,this.pass)
+        .subscribe((data)=>{
+            console.log("updated Successfully")
+            console.log(JSON.stringify(data))
+        },(error)=>{
+            console.log("shit happen !") 
+            console.log(error)           
+
+        }) 
+        
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
     }
-    constructor(private routerExtensions: RouterExtensions){
-
+    constructor(private routerExtensions: RouterExtensions,private ls: LoginService){
+        this.login_service = ls;
     }
 
     /* ***********************************************************

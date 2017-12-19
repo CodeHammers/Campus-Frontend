@@ -43,4 +43,16 @@ export class LoginService {
         return  this.http.post("https://api.imgur.com/3/image",{image: base64string},{headers: headers});
     }
 
+    updatePassword(id: number, np : string){
+        console.log("updating password")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data ={
+            pd: np
+        }
+        return  this.http.put("https://ccampus.herokuapp.com/api/users/"+id,data,{headers: headers});
+        
+
+    }
+
 }

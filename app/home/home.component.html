@@ -32,17 +32,20 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <GridLayout class="page page-content" tkMainContent>
         <!--Label class="page-icon fa" text="&#xf015;"></Label>
         <Label class="page-placeholder" text="<!-- Page content goes here >"></Label-->
-
+            <!--
+        <TextField hint="new password" [(ngModel)]="pass"></TextField>
+        
+        <Button  text="Update Password" (tap)="updatePassword()"></Button>
+            -->
         <StackLayout class="chopMargin">
 
-            <StackLayout class="chopMargin" orientation="Horizontal">
-                <label class="InfoLabels" text="Logged in as:   " style="font-weight: Bold"></label>
-                <label text="basel@yahoo.com" style="font-weight: Bold"></label>
-            </StackLayout>
+            
 
             <ScrollView>
                 <StackLayout class="chopMargin">
-
+                    <TextField hint="new password"  secure="true" [(ngModel)]="pass"></TextField>
+                    <Button  text="Update Password" (tap)="updatePassword()"></Button>
+                    
                     <CardView class="cardStyle" margin="10" elevation="40" radius="1">
                         <GridLayout rows="10,30,30,250, auto, auto,10" columns="10,40, *, 30,10">
                             <Image src="res://campus_logo_blue" stretch="aspectFit" verticalAlignment="stretch" col="1" row="1" rowSpan="2"></Image>

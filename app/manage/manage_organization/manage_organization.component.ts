@@ -51,7 +51,37 @@ export class ManageOrganizationComponent implements OnInit {
 
 
 
-    
+
+    deleteWorkshop(id: number){
+        this.manage_service.delete_workshop(id,getNumber("sp_id",0))
+        .subscribe((data) => {
+            console.log(JSON.stringify(data));
+            //token exhange 
+            //if new token introduced ,update my token
+            console.log("delete granted")
+            console.log("workshops Saved Success")
+            
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+
+        }, (error) => {
+
+            let data = error;
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+
+            console.log("shit happen !");
+             console.log(error);
+        });
+    }
 
     grantAccess(){
         this.manage_service.grant_user_org(this.email, getNumber("sp_id",0))
