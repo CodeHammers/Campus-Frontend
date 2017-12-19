@@ -6,8 +6,7 @@
     <!-- 
     Use the ActionItem for IOS with position set to left. Using the NavigationButton as a side-drawer button in iOS is not possible, because its function is to always navigate back in the application.
     -->
-    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
-        ios.position="left">
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
     <Label class="action-bar-title" text="Home"></Label>
 </ActionBar>
@@ -26,12 +25,48 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <StackLayout tkDrawerContent>
         <MyDrawer [selectedPage]="'Home'"></MyDrawer>
     </StackLayout>
-    
+
     <!--
     Use the tkMainContent directive to display the content of the page when you have an app drawer.
     -->
     <GridLayout class="page page-content" tkMainContent>
-        <Label class="page-icon fa" text="&#xf015;"></Label>
-        <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
+        <!--Label class="page-icon fa" text="&#xf015;"></Label>
+        <Label class="page-placeholder" text="<!-- Page content goes here >"></Label-->
+
+        <StackLayout class="chopMargin">
+
+            <StackLayout class="chopMargin" orientation="Horizontal">
+                <label class="InfoLabels" text="Logged in as:   " style="font-weight: Bold"></label>
+                <label text="basel@yahoo.com" style="font-weight: Bold"></label>
+            </StackLayout>
+
+            <ScrollView>
+                <StackLayout class="chopMargin">
+
+                    <CardView class="cardStyle" margin="10" elevation="40" radius="1">
+                        <GridLayout rows="10,30,30,250, auto, auto,10" columns="10,40, *, 30,10">
+                            <Image src="res://campus_logo_blue" stretch="aspectFit" verticalAlignment="stretch" col="1" row="1" rowSpan="2"></Image>
+                            <Label class="cardStyle h2 text-left" style="font-weight: Bold" horizontalAlignment="left" text="IEEE created a workshop" row="1" col="2"
+                                textWrap="true"></Label>
+                            <Label class="cardStyle h3 text-left" horizontalAlignment="left" text="Machine learning" row="2" col="2"></Label>
+                            <Image src="res://campus_logo_blue" stretch="aspectFit" colSpan="3" col="1" row="3"></Image>
+                        </GridLayout>
+                    </CardView>
+
+                    <CardView class="cardStyle" margin="10" elevation="40" radius="1">
+                        <GridLayout rows="10,30,30,250, auto, auto,10" columns="10,40, *, 30,10">
+                            <Image src="res://campus_logo_blue" stretch="aspectFit" verticalAlignment="stretch" col="1" row="1" rowSpan="2"></Image>
+                            <Label class="cardStyle h2 text-left" style="font-weight: Bold" horizontalAlignment="left" text="FabLab created a workshop" row="1" col="2"
+                                textWrap="true"></Label>
+                            <Label class="cardStyle h3 text-left" horizontalAlignment="left" text="3d printing" row="2" col="2"></Label>
+                            <Image src="res://campus_logo_blue" stretch="aspectFit" colSpan="3" col="1" row="3"></Image>
+                        </GridLayout>
+                    </CardView>
+
+                </StackLayout>
+            </ScrollView>
+
+        </StackLayout>
+
     </GridLayout>
 </RadSideDrawer>
