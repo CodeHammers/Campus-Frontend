@@ -47,6 +47,7 @@ export class ManageComponent implements OnInit {
 
         this.manage_service.getWorkspacesManagedByUser()
         .subscribe((data) => {
+            console.log("  workspace recieved!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-><")
             console.log(JSON.stringify(data));
             //token exhange 
             //if new token introduced ,update my token
@@ -92,6 +93,9 @@ export class ManageComponent implements OnInit {
              console.log(error);
         });
 
+    }
+    saveId(b_id: number){
+        setNumber("b_id",b_id);
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {

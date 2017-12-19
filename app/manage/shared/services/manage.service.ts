@@ -9,6 +9,9 @@ import "rxjs/add/operator/do";
 import { Organization } from "../classes/organization";
 import { Workspace } from "../classes/workspace";
 import { Workshop } from "../classes/workshop";
+import { Event } from "../classes/event"
+import { Branch } from "../classes/branch"
+import { Room } from "../classes/room"
 
 
 @Injectable()
@@ -240,5 +243,208 @@ export class ManageService {
         
     }
 
+/*
+
+0	
+id	1
+title	"2018 opening"
+description	"kvector opening"
+time	null
+date	"2018-01-01"
+location	"Giza"
+created_at	"2017-12-19 00:03:29.380469"
+updated_at	"2017-12-19 00:03:29.380469"
+organization_id	29
+branch_id	15
+*/
+
+
+    postEvent(w:Event,id: number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("token-type", "Bearer");
+        
+        
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }     
+
+        let data = {
+            date: w.date,
+            title: w.title,
+            description: w.description,
+            location : "someWhere in the fucking world"
+
+        }
+     
+
+        return this.http.post(this.baseUrl+"/api/organizations/"+id+"/events" , data,{headers: headers});
+        
+    }
+
+
+
+    grant_user_org(email: string,org_id: number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        return this.http.post(this.baseUrl+"/api/grant/organiztion?email="+email+"&organization_id="+org_id , {},{headers: headers});
+        
+
+    }
+    get_all_staff_in_org(org_id:number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        return this.http.get(this.baseUrl+"/api/users?org_id="+org_id , {headers: headers});
+    }
+
+
+    getEventsForOrganization(id:number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+  
+        
+        return this.http.get(this.baseUrl+"/api/organizations/"+id+"/events",{headers: headers})
+        
+    }
+
+    postBranch(b : Branch,id: number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("token-type", "Bearer");
+        
+        
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }     
+
+        let data = {
+            address: b.address,
+            phone: b.phone,
+            number_of_rooms: b.number_of_rooms,
+            email:b.email
+
+        }
+     
+
+        return this.http.post(this.baseUrl+"/api/workspaces/"+id +"/branches", data,{headers: headers});
+    }
+
+    get_all_branches(id: number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+  
+        
+        return this.http.get(this.baseUrl+"/api/workspaces/"+id+"/branches",{headers: headers})
+    }
+    /*
+        0	
+        id	15
+        address	"Dokki, Giza, Egypt"
+        phone	"27856965"
+        1
+    */
+
+    get_branch(id: number,w_id: number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        return this.http.get(this.baseUrl+"/api/workspaces/"+w_id+"/branches/"+id,{headers: headers})
+    }
+
+    update_branch(b:Branch,id: number){
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("token-type", "Bearer");
+        
+        
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }     
+        console.log(b.id)
+        console.log(id)
+        let data = {
+            address: b.address,
+            phone: b.phone,
+            number_of_rooms: b.number_of_rooms,
+            email:b.email
+
+        }
+        console.log("data to update",JSON.stringify(data))
+
+        return this.http.put(this.baseUrl+"/api/workspaces/"+id +"/branches/"+b.id, data,{headers: headers});
+    }
+
+    get_rooms_for_branch(b_id:number,w_id:number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        return this.http.get(this.baseUrl+"/api/workspaces/"+b_id +"/branches/"+w_id+"/rooms",{headers: headers});
+    }
+
+    post_room(b_id:number,w_id:number,room:Room){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }   
+        let data = {
+            capacity: room.capacity,
+            price: room.price,
+            services: room.services
+        }
+
+        return this.http.post(this.baseUrl+"/api/workspaces/"+b_id +"/branches/"+w_id+"/rooms", data,{headers: headers});
+        
+        
+    }
+
+
+    post_room_image(id:number,b_id:number,w_id:number,img_link:string){
+        console.log(img_link)
+        console.log("posting image")
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }   
+
+        return this.http.post(this.baseUrl+"/api/workspaces/"+b_id +"/branches/"+id+"/rooms/"+w_id+"/images", {image_url:img_link},{headers: headers});
+        
+    }
+
+
+    
 
 }

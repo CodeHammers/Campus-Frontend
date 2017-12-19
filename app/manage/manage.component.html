@@ -42,7 +42,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
             <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
     
                 <StackLayout [class.odd]="odd" [class.even]="even">
-                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['./manage_workspace', item.id]"  ></Label>
+                    <Label [text]='item.name' class="list-item" [nsRouterLink]="['./manage_workspace', item.id]"  (tap)="saveId(item.id)" ></Label>
                 </StackLayout>
     
             </ng-template>

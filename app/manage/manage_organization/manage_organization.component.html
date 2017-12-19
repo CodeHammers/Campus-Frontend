@@ -46,6 +46,11 @@ updated_at	"2017-12-17T04:06:38.764Z"
 
 
     <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent>
+
+
+        <!--############################### tab 1   ######################### -->
+<
+
         <StackLayout *tabItem="{title: 'Profile'}">
             <StackLayout  orientation="horizontal">
                 <Image  [src]="org.logo" width="150" height="150"></Image>
@@ -68,84 +73,84 @@ updated_at	"2017-12-17T04:06:38.764Z"
             </StackLayout>
         </StackLayout>
 
+    
+
+<!--############################### tab 2   ######################### -->
 
 
+        <ScrollView *tabItem="{title: 'Schedule'}">
 
+                <StackLayout>
+                    
 
+                    <TextView
+                    text="Workshops" 
+                    style="font-weight:bold"
+                    WrapText="true"
+                    class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
 
+                    
+                    <StackLayout class="hr-light"></StackLayout>
+                    <TextField hint="Title" [(ngModel)]="newWorkshop.title"></TextField>
+                    <TextField hint="Description" [(ngModel)]="newWorkshop.description"></TextField>
 
+                    <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"  verticalAlignment="center"></DatePicker>
 
+                                
+                    <Button text="Add" style="background-color:#337ab7;color:white" (tap)="AddWorkshop()"  ></Button>      
+                    
+                    
 
-
-
-
-
-
-
-
-        <StackLayout *tabItem="{title: 'Schedule'}">
-            <StackLayout>
-
-                <TextView
-                text="Workshops" 
-                style="font-weight:bold"
-                WrapText="true"
-                class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
-
-                <ListView [items]="workshops"  class="m-r-9 m-l-9" >
-                    <ng-template let-item="item" let-odd="odd" let-even="even" >
-                        <DockLayout stretchLastChild="true"  class="m-12" >
-                                <StackLayout   dock="left" width="80%"  > 
-                                        <Label  style="font-size:small;color:#222;font-weight:normal"  [text]="item.title"></Label>
-                                        <Label  style="font-size:smaller;color:#222;font-weight:normal"  class="m-l-25" [text]="item.date"></Label>
-                                        
-                                </StackLayout>
-                                <Button dock="right"  width="20%"  text="End" ></Button>
-                        </DockLayout>
-                        
-                    </ng-template>
-                </ListView>
-                <StackLayout class="hr-light"></StackLayout>
-                <TextField hint="Title" [(ngModel)]="newWorkshop.title"></TextField>
-                <TextField hint="Description" [(ngModel)]="newWorkshop.description"></TextField>
-
-                <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"  verticalAlignment="center"></DatePicker>
-
-                            
-                <Button text="Add" style="background-color:#337ab7;color:white" (tap)="AddWorkshop()"  ></Button>            
-                
-                
-                <TextView
-                text="Events" 
-                style="font-weight:bold"
-                class="m-b-10" editable="false"  style="font-size:medium"  ></TextView>
-
-                <ListView [items]="events"  >
-                        <ng-template let-item="item" let-odd="odd" let-even="even">
-                            <DockLayout stretchLastChild="true">
-                                    <Label  dock="left"  [text]="item"></Label>
-                                    <Button dock="right"  width="20%"   text="End" ></Button>
+                    <ListView [items]="workshops"  class="m-r-9 m-l-9" >
+                        <ng-template let-item="item" let-odd="odd" let-even="even" >
+                            <DockLayout   class="m-12" >
+                                    <StackLayout   dock="left" width="80%"  > 
+                                            <Label  style="font-size:small;color:#222;font-weight:normal"  [text]="item.title"></Label>
+                                            <Label  style="font-size:smaller;color:#222;font-weight:normal"  class="m-l-25" [text]="item.date"></Label>
+                                            
+                                    </StackLayout>
+                                    <Button dock="right"  width="20%"  text="End" ></Button>
                             </DockLayout>
                             
                         </ng-template>
-                </ListView>
-
-                <Button text="Add" style="background-color:#337ab7;color:white"  ></Button>            
-            </StackLayout>
-        </StackLayout>
+                    </ListView>
+                    
 
 
+                    
+                    <!--
+                    <TextView
+                    text="Events" 
+                    style="font-weight:bold"
+                    class="m-b-10" editable="false"  style="font-size:medium"  ></TextView>
+
+                    <ListView [items]="events"  >
+                            <ng-template let-item="item" let-odd="odd" let-even="even">
+                                <DockLayout stretchLastChild="true">
+                                        <Label  dock="left"  [text]="item"></Label>
+                                        <Button dock="right"  width="20%"   text="End" ></Button>
+                                </DockLayout>
+                                
+                            </ng-template>
+                    </ListView>
 
 
+                    <TextField hint="title" [(ngModel)]="newEvent.title"></TextField>
+                    <TextField hint="description" [(ngModel)]="newEvent.title"></TextField>
+                    <TextField hint="location"  [(ngModel)]="newEvent.title"></TextField>
+                    <DatePicker (loaded)="onPickerLoadede($event)" (dateChange)="onDateChangede($event)"  verticalAlignment="center"></DatePicker>
+                    
 
+                    <Button text="Add" style="background-color:#337ab7;color:white" (tap)="AddEvent()"  ></Button>    
+                -->
+                </StackLayout>
+        
 
+        </ScrollView>
 
+    
 
-
-
-
-
-
+<!--############################### tab 3   ######################### -->
 
 
 
@@ -158,26 +163,29 @@ updated_at	"2017-12-17T04:06:38.764Z"
             class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
 
 
-            <ListView [items]="source" >
+            <ListView [items]="managers" >
                 <ng-template let-item="item" let-odd="odd" let-even="even">
                     <StackLayout>
-                    <Label [text]="item"></Label>
-                    
+                        <Label [text]="item.name" style="color:#222;font-weight:normal;margin-left:19;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif" class="h4 m-l-9" ></Label>
+                        <Label [text]="item.email" style="color:#222;;font-weight:300;margin-left:19;font-family:cursive" class="h5 m-l-9" ></Label>
                     </StackLayout>
                 </ng-template>
             </ListView>
+
+
             <StackLayout orientation="horizontal">
-                    <TextField hint="enter user gmail" text=""></TextField>
-                    <Button text="Grant Access" > </Button>                        
+                    <TextField hint="enter user gmail" width="64%" [(ngModel)]="email"></TextField>
+                    <Button text="Grant Access" (tap)="grantAccess()"> </Button>                        
             </StackLayout>
                 
 
         </StackLayout>
 
-
+    
     </TabView>
 
 
+    
 
         
 

@@ -7,9 +7,10 @@ import { setString, getNumber, getString } from "tns-core-modules/application-se
 import { ActivatedRoute } from "@angular/router";
 import * as imagepicker from "nativescript-imagepicker";
 import { Workshop } from "../shared/classes/workshop";
-
+import { Manager } from "../shared/classes/manager"
 import { DatePicker } from "ui/date-picker";
 import { EventData } from "data/observable";
+import  { Event  } from "../shared/classes/event"
 
 
 
@@ -27,15 +28,18 @@ export class ManageOrganizationComponent implements OnInit {
     manage_service: ManageService;
     org: Organization;
     workshops: Array<Workshop>
-    events: Array<String>
+    events: Array<Event>
     newWorkshop: Workshop;
+    newEvent : Event;
+    public managers: Array<Manager>
+    email: string;
 
     constructor(private m_service: ManageService,private route: ActivatedRoute){
         this.manage_service = m_service;
         this.org = new Organization(0,"");
         this.workshops = []
         this.newWorkshop  = new Workshop("","",1)
-        
+        this.managers = []
     }
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
@@ -44,6 +48,43 @@ export class ManageOrganizationComponent implements OnInit {
     /* ***********************************************************
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
+
+
+
+    
+
+    grantAccess(){
+        this.manage_service.grant_user_org(this.email, getNumber("sp_id",0))
+        .subscribe((data) => {
+            console.log(JSON.stringify(data));
+            //token exhange 
+            //if new token introduced ,update my token
+            console.log("Accesss granted")
+                        
+
+        }, (error) => {
+            console.log("shit happen !");
+             console.log(error);
+        });
+    }
+
+
+    onPickerLoadede(args) {
+        let datePicker = <DatePicker>args.object;
+
+        datePicker.year = 1980;
+        datePicker.month = 2;
+        datePicker.day = 9;
+        datePicker.minDate = new Date(2017, 12, 18);
+        datePicker.maxDate = new Date(2045, 4, 12);
+    }
+
+    onDateChangede(args) {
+        console.log("Date changed");
+        console.log("New value: " + args.value);
+        console.log("Old value: " + args.oldValue);
+        this.newEvent.date = args.value;
+    }
 
 
     onPickerLoaded(args) {
@@ -62,6 +103,38 @@ export class ManageOrganizationComponent implements OnInit {
         console.log("Old value: " + args.oldValue);
         this.newWorkshop.date = args.value;
     }
+
+    AddEvent(){
+        console.log("adding Event")
+        console.log(this.newEvent.title)
+        console.log(this.newEvent.date)
+        console.log(this.newEvent.description)
+
+        this.manage_service.postWorkshop(this.newEvent,  getNumber("sp_id",0))
+        .subscribe((data) => {
+            console.log(JSON.stringify(data));
+            //token exhange 
+            //if new token introduced ,update my token
+            console.log("workshops Saved Success")
+
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+            
+
+        }, (error) => {
+            console.log("shit happen !");
+            console.log(getString("userheaders","none"))
+            setString("userheaders","none");
+             console.log(error);
+        });
+    }
+
+
+
     AddWorkshop(){
         console.log("adding workshop")
         console.log(this.newWorkshop.title)
@@ -143,12 +216,7 @@ export class ManageOrganizationComponent implements OnInit {
             //if new token introduced ,update my token
             console.log("workshops came")
             
-            console.log( data.headers.get("Access-Token"))
-            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
-                console.log("update token");
-                console.log(JSON.stringify( data.headers ) )
-                setString("userheaders",JSON.stringify(data.headers));                
-            }
+   
             data["_body"].forEach((w) => {
                 console.log("printing elements")
                 console.log( JSON.stringify( w )    )
@@ -157,10 +225,53 @@ export class ManageOrganizationComponent implements OnInit {
             });
         }, (error) => {
             console.log("shit happen !");
-            console.log(getString("userheaders","none"))
-            setString("userheaders","none");
              console.log(error);
         });
+
+
+
+
+        this.manage_service.getEventsForOrganization(  getNumber("sp_id",0) )
+        .subscribe((data) => {
+            console.log(JSON.stringify(data));
+            //token exhange 
+            //if new token introduced ,update my token
+            console.log("workshops came")
+            
+        
+            data["_body"].forEach((w) => {
+                console.log("printing elements")
+                console.log( JSON.stringify( w )    )
+                this.events.push( new Event(w.title,w.date,w.id) ); 
+
+            });
+        }, (error) => {
+            console.log("shit happen !");
+          
+             console.log(error);
+        });
+
+
+
+        this.manage_service.get_all_staff_in_org(  getNumber("sp_id",0) )
+        .subscribe((data) => {
+            console.log(JSON.stringify(data["_body"]));
+
+            console.log("users came ")
+
+            data["_body"].forEach((w) => {
+                console.log("printing elements")
+                console.log( JSON.stringify(w))
+                this.managers.push( new Manager(w.id,w.name,w.email) ); 
+
+            });
+            console.log(this.managers.length)
+        }, (error) => {
+            console.log("shit happen !");
+             console.log(error);
+        });
+
+
 
     }
     updateOrganization(){

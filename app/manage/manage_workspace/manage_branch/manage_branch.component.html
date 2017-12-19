@@ -1,0 +1,85 @@
+<ActionBar class="action-bar">
+        <!-- 
+        Use the NavigationButton as a side-drawer button in Android because ActionItems are shown on the right side of the ActionBar
+        -->
+        <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+        <!-- 
+        Use the ActionItem for IOS with position set to left. Using the NavigationButton as a side-drawer button in iOS is not possible, because its function is to always navigate back in the application.
+        -->
+        <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+            ios.position="left">
+        </ActionItem>
+        <Label class="action-bar-title" text="Manage"></Label>
+    </ActionBar>
+    
+    <!--
+    RadSideDrawer is a UI component part of the Progress NativeScript UI set of components.
+    Learn more about the RadSideDrawer UI component and how it can be customized in this documentation article:
+    http://docs.telerik.com/devtools/nativescript-ui/Controls/Angular/SideDrawer/getting-started
+    The RadSideDrawer component is designed to be used as a root element and
+    it shouldn't have any other siblings other than the <ActionBar> component.
+    -->
+    <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+        <!--
+        Use the tkDrawerContent directive to display the content of the app drawer on this page.
+        -->
+        <StackLayout tkDrawerContent>
+            <MyDrawer [selectedPage]="'Manage'"></MyDrawer>
+        </StackLayout>
+        
+        <!--
+        Use the tkMainContent directive to display the content of the page when you have an app drawer.
+        -->
+
+
+    <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent  class="page page-content">
+            <StackLayout *tabItem="{title: 'Profile'}">
+                <StackLayout  orientation="horizontal">
+                    <Image  [src]="branch.logo" width="150" height="150"></Image>
+                    <StackLayout>
+                        <TextField text="Your num of rooms" width="100%" [(ngModel)]="branch.number_of_rooms"  style="margin-top:10"  class="h3" ></TextField>
+                        <TextField text="Your Email" width="100%"  [(ngModel)]="branch.email"   style="margin-top:10"   class="h3 " ></TextField>
+                        <TextField text="Your Phone"  width="100%"  [(ngModel)]="branch.phone"   style="margin-top:10"   class="h3 " ></TextField>
+                        
+                    </StackLayout>
+                  
+                    
+                </StackLayout>
+                
+                
+                <StackLayout orientation="horizontal" width="100%"> 
+                    <Button text="update" style="background-color:#337ab7;color:white"  (tap)="update_branch()" ></Button>            
+                    
+                </StackLayout>
+            </StackLayout>
+    
+
+            <StackLayout *tabItem="{title: 'Rooms'}">
+                
+                <ListView [items]="rooms" >
+                    <ng-template let-item="item" let-odd="odd" let-even="even">
+                      <StackLayout oreintation="horizontal">
+                        <Label [text]="item.id" class="list-group-item"></Label>
+                        <Button text="Add Image" (tap)="addImageToRoom(item.id)"></Button>
+                        
+                      </StackLayout>
+                    </ng-template>
+                </ListView>
+
+                <TextField hint="capacity" [(ngModel)]="room.capacity"></TextField>
+                <TextField hint="price" [(ngModel)]="room.price"></TextField>
+                <TextField hint="services" [(ngModel)]="room.services"></TextField>
+                
+
+                <Button style="background-color:#337ab7;color:white"  text="Add"  (tap)="createRoom()"></Button>
+            </StackLayout>
+    </TabView>
+      
+    </RadSideDrawer>
+    
+    
+<!--
+       this.capacity = c;
+        this.price = p;
+        this.services = s;
+-->

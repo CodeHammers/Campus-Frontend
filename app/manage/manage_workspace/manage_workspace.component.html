@@ -41,15 +41,39 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
         <ListView [items]="branches" >
             <ng-template let-item="item" let-odd="odd" let-even="even">
-              <StackLayout>
-                <Label [text]="item.title" ></Label>
+                
+              <StackLayout style="padding:16"  [nsRouterLink]="['./branch']"  (tap)="saveData(item.id)">
+                <Label [text]="item.address" class="h3"></Label>
                 
               </StackLayout>
-            </ng-template>
+            </ng-template>        
         </ListView>
 
-        <Button text="Add " style="background-color:#337ab7;color:white"></Button>
+        <TextField hint="address" [(ngModel)]="branch.address"></TextField>
+        <TextField hint="phone" [(ngModel)]="branch.phone"></TextField>
+        <TextField hint="Number of rooms" [(ngModel)]="branch.number_of_rooms"></TextField>
+        <TextField hint="Email" [(ngModel)]="branch.email"></TextField>
+        
+        
+
+        <Button text="Add " style="background-color:#337ab7;color:white"  (tap)="postBranch()"></Button>
         
 
     </StackLayout>
 </RadSideDrawer>
+
+
+<!--
+      create_table "branches", force: :cascade do |t|
+    t.integer "number_of_rooms", null: false
+    t.text "services"
+    t.string "address", null: false
+    t.string "phone", null: false
+    t.string "email"
+    t.string "photos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "workspace_id"
+    t.index ["workspace_id"], name: "index_branches_on_workspace_id"
+  end
+-->

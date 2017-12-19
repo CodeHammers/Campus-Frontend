@@ -19,10 +19,16 @@ export class MyDrawerComponent implements OnInit {
     *************************************************************/
     public email:string;
     public name:string;
+    public logo_url:string;
     @Input() selectedPage: string;
 
     ngOnInit(): void {
+        this.logo_url = "https://avatars0.githubusercontent.com/u/26489087?s=400&v=4";
         if(getString("userdata","none")!="none"){
+
+            //image
+            if( JSON.parse( getString("userdata","")).image != null)
+              this.logo_url = JSON.parse( getString("userdata","")).image
             this.email = JSON.parse( getString("userdata","none")).email 
             this.name = JSON.parse( getString("userdata","none")).name            
         }
