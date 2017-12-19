@@ -50,7 +50,10 @@
             </TextField>
 
             <Label class="InfoLabels" text="Password check:" textWrap="true"></Label>
-            <TextField class="InputTextFields" hint="Write password again" autocorrect="false" text="" secure="true"></TextField>
+            <TextField [(ngModel)]="newuser.passwordCheck" class="InputTextFields" hint="Write password again" autocorrect="false" text="" secure="true">
+
+            </TextField>
+
             <Button text="Browse For Image" (tap)="browseForImage()"></Button>
             <Button text="Sign up" class="submit-button" (tap)="SignUp()"></Button>
 

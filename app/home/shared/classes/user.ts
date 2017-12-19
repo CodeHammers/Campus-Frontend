@@ -3,8 +3,10 @@ export class User{
     email: string;
     password: string;
     logo: string;
-    constructor(mail: string,password: string){
+    passwordCheck: string;
+    constructor(mail: string,password: string,passwordCheck: string){
         this.password = password;
         this.email = mail;
+        this.passwordCheck = passwordCheck;
     }
 }

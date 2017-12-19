@@ -48,8 +48,8 @@ export class LoginComponent  implements OnInit {
          //}
          setString("userdata","none");
     	//this.user = new User("Sayed@gmail.com","5odonyma3ako");
-        this.user = new User("","");
-        this.newuser = new User("","");
+        this.user = new User("","","");
+        this.newuser = new User("","","");
     	this.login_service = ls;
     }
 
@@ -117,6 +117,23 @@ export class LoginComponent  implements OnInit {
     }
 
     SignUp(){
+
+        if(this.newuser.password.length < 8){
+            console.log("entered in valid password less than 8 chars");
+            console.log(this.newuser.password);
+            this.showSimple("Password length is less than 8");
+            return;
+        }
+
+        if(this.newuser.password != this.newuser.passwordCheck){
+            console.log("Password doesn't match");
+            console.log(this.newuser.password + " " + this.newuser.passwordCheck);
+            this.showSimple("Passwords doesn't match");
+            return;
+        }
+
+
+
         this.login_service.signUp(this.newuser)
         .subscribe((res) => {
             let message = res.data;
@@ -125,6 +142,8 @@ export class LoginComponent  implements OnInit {
             console.log(JSON.stringify(message))
             setString("userdata",JSON.stringify(message));
             this.routerExtensions.navigate(["home/profile"]);
+
+            this.showSimple("Success !");
       
         }, (error) => {
             console.log("shit happen !");
