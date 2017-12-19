@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
+import { setString } from "tns-core-modules/application-settings/application-settings";
 
 /* ***********************************************************
 * Keep data that is displayed as drawer items in the MyDrawer component class.
@@ -32,6 +33,9 @@ export class MyDrawerItemComponent implements OnInit {
     * based on the tapped navigationItem's route.
     *************************************************************/
     onNavItemTap(navItemRoute: string): void {
+        if(navItemRoute == "/home/login")
+            setString("userdata","none")
+        console.log("loggging out")
         this.routerExtensions.navigate([navItemRoute], {
             transition: {
                 name: "fade"

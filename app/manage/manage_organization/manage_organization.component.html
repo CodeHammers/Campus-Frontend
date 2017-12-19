@@ -69,56 +69,84 @@ updated_at	"2017-12-17T04:06:38.764Z"
         </StackLayout>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <StackLayout *tabItem="{title: 'Schedule'}">
+            <StackLayout>
 
+                <TextView
+                text="Workshops" 
+                style="font-weight:bold"
+                WrapText="true"
+                class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
 
-            <TextView
-            text="Workshops" 
-            style="font-weight:bold"
-            WrapText="true"
-            class="m-b-5" editable="false"  style="font-size:medium"  ></TextView>
-
-            <ListView [items]="workshops"  class="m-r-9 m-l-9" >
-                <ng-template let-item="item" let-odd="odd" let-even="even" >
-                    <DockLayout stretchLastChild="true"  class="m-12" >
-                            <StackLayout   dock="left" width="80%"  > 
-                                    <Label  style="font-size:small;color:#222;font-weight:normal"  [text]="item.title"></Label>
-                                    <Label  style="font-size:smaller;color:#222;font-weight:normal"  class="m-l-25" [text]="item.date"></Label>
-                                    
-                            </StackLayout>
-                            <Button dock="right"  width="20%"  text="End" ></Button>
-                    </DockLayout>
-                    
-                </ng-template>
-            </ListView>
-            <StackLayout class="hr-light"></StackLayout>
-            <TextField hint="Title" [(ngModel)]="newWorkshop.title"></TextField>
-            <TextField hint="Description" [(ngModel)]="newWorkshop.description"></TextField>
-
-            <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"  verticalAlignment="center"></DatePicker>
-
-                        
-            <Button text="Add" style="background-color:#337ab7;color:white" (tap)="AddWorkshop()"  ></Button>            
-            
-            
-            <TextView
-            text="Events" 
-            style="font-weight:bold"
-            class="m-b-10" editable="false"  style="font-size:medium"  ></TextView>
-
-            <ListView [items]="events"  >
-                    <ng-template let-item="item" let-odd="odd" let-even="even">
-                        <DockLayout stretchLastChild="true">
-                                <Label  dock="left"  [text]="item"></Label>
-                                <Button dock="right"  width="20%"   text="End" ></Button>
+                <ListView [items]="workshops"  class="m-r-9 m-l-9" >
+                    <ng-template let-item="item" let-odd="odd" let-even="even" >
+                        <DockLayout stretchLastChild="true"  class="m-12" >
+                                <StackLayout   dock="left" width="80%"  > 
+                                        <Label  style="font-size:small;color:#222;font-weight:normal"  [text]="item.title"></Label>
+                                        <Label  style="font-size:smaller;color:#222;font-weight:normal"  class="m-l-25" [text]="item.date"></Label>
+                                        
+                                </StackLayout>
+                                <Button dock="right"  width="20%"  text="End" ></Button>
                         </DockLayout>
                         
                     </ng-template>
-            </ListView>
+                </ListView>
+                <StackLayout class="hr-light"></StackLayout>
+                <TextField hint="Title" [(ngModel)]="newWorkshop.title"></TextField>
+                <TextField hint="Description" [(ngModel)]="newWorkshop.description"></TextField>
 
-            <Button text="Add" style="background-color:#337ab7;color:white"  ></Button>            
-            
+                <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"  verticalAlignment="center"></DatePicker>
+
+                            
+                <Button text="Add" style="background-color:#337ab7;color:white" (tap)="AddWorkshop()"  ></Button>            
+                
+                
+                <TextView
+                text="Events" 
+                style="font-weight:bold"
+                class="m-b-10" editable="false"  style="font-size:medium"  ></TextView>
+
+                <ListView [items]="events"  >
+                        <ng-template let-item="item" let-odd="odd" let-even="even">
+                            <DockLayout stretchLastChild="true">
+                                    <Label  dock="left"  [text]="item"></Label>
+                                    <Button dock="right"  width="20%"   text="End" ></Button>
+                            </DockLayout>
+                            
+                        </ng-template>
+                </ListView>
+
+                <Button text="Add" style="background-color:#337ab7;color:white"  ></Button>            
+            </StackLayout>
         </StackLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <StackLayout *tabItem="{title: 'Staff'}">

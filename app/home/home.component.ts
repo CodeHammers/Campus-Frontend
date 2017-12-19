@@ -11,7 +11,7 @@ import { RouterExtensions, PageRoute } from "nativescript-angular/router";
     moduleId: module.id,
     templateUrl: "./home.component.html"
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit{
     /* ***********************************************************
     * Use the @ViewChild decorator to get a reference to the drawer component.
     * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.

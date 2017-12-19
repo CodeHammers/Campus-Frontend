@@ -52,7 +52,7 @@ export class ManageOrganizationComponent implements OnInit {
         datePicker.year = 1980;
         datePicker.month = 2;
         datePicker.day = 9;
-        datePicker.minDate = new Date(1975, 0, 29);
+        datePicker.minDate = new Date(2017, 12, 18);
         datePicker.maxDate = new Date(2045, 4, 12);
     }
 
@@ -67,6 +67,28 @@ export class ManageOrganizationComponent implements OnInit {
         console.log(this.newWorkshop.title)
         console.log(this.newWorkshop.date)
         console.log(this.newWorkshop.description)
+
+        this.manage_service.postWorkshop(this.newWorkshop,  getNumber("sp_id",0))
+        .subscribe((data) => {
+            console.log(JSON.stringify(data));
+            //token exhange 
+            //if new token introduced ,update my token
+            console.log("workshops Saved Success")
+
+            console.log( data.headers.get("Access-Token"))
+            if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
+                console.log("update token");
+                console.log(JSON.stringify( data.headers ) )
+                setString("userheaders",JSON.stringify(data.headers));                
+            }
+            
+
+        }, (error) => {
+            console.log("shit happen !");
+            console.log(getString("userheaders","none"))
+            setString("userheaders","none");
+             console.log(error);
+        });
     }
 
     /*
@@ -114,7 +136,7 @@ export class ManageOrganizationComponent implements OnInit {
         })        
 
 
-        this.manage_service.getWorkshopsForOrganization(6)
+        this.manage_service.getWorkshopsForOrganization(  getNumber("sp_id",0) )
         .subscribe((data) => {
             console.log(JSON.stringify(data));
             //token exhange 
