@@ -81,10 +81,10 @@ export class SearchComponent implements OnInit {
 
         this.loading_data = true;
 
-        this.workspaces = [];
 
         this.search_service.getWorkspaces(workspaceSearchName.text).subscribe((res) => {
 
+            this.workspaces = [];
 
             this.loading_data = false;
             console.log("Got the JSON");

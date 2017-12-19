@@ -6,6 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { SearchService } from "../shared/services/search.service"
 import { Branch } from "../shared/classes/branch"
+import { Room } from "../shared/classes/room";
 
 @Component({
     moduleId: module.id,
@@ -23,6 +24,8 @@ export class BranchComponent implements OnInit {
     public workspace_id: number;
 
     public branch: Branch;
+
+    public rooms: Array<Room>;
     /* ***********************************************************
     * Use the @ViewChild decorator to get a reference to the drawer component.
     * It is used in the "onDrawerButtonTap" function below to manipulate the drawer.
@@ -47,7 +50,30 @@ export class BranchComponent implements OnInit {
 
                 console.log(JSON.stringify(res["_body"]));
                 this.branch = new Branch(res["_body"].id, res["_body"].address);
-                this.branch.setAll( res["_body"].photos, res["_body"].number_of_rooms, res["_body"].phone, res["_body"].email);
+                this.branch.setAll(res["_body"].photos, res["_body"].number_of_rooms, res["_body"].phone, res["_body"].email);
+
+            }, (error) => {
+                console.log("Error in branch happaned");
+            });
+
+        this.ss.getRooms(this.workspace_id ,this.branch_id)
+            .subscribe((res) => {
+
+                this.rooms = [];
+
+                console.log(JSON.stringify(res["_body"]));
+
+                res["_body"].forEach((room) => {
+                    console.log("in loop")
+                    console.log(JSON.stringify(room));
+
+                    console.log(this.branch_id, this.workspace_id);
+
+                    let r = new Room(room.id);
+                    r.setAll(room.availability, room.price, room.capacity, room.services);
+
+                    this.rooms.push(r);
+                });
 
             }, (error) => {
                 console.log("Error in branch happaned");

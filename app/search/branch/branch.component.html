@@ -8,7 +8,7 @@
     -->
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Search"></Label>
+    <Label class="action-bar-title" text="WorkSpace"></Label>
 </ActionBar>
 
 
@@ -36,26 +36,49 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
         <StackLayout *tabItem="{title: 'Details'}">
 
-            <image src='res://campus_logo_blue'></image>
+            <image [src]='branch.imagelink'></image>
 
-        </StackLayout>
+            <Label text='Number of rooms:' class="h2 m-l-10" textwrap=true></Label>
+            <Label [text]='branch.numberRooms' class="h3 m-l-10" textwrap=true></Label>
 
-        <StackLayout *tabItem="{title: 'Schedule'}">
+            <Label text='E-mail:' class="h2 m-l-10" textwrap=true></Label>
+            <Label [text]='branch.email' class="h3 m-l-10" textwrap=true></Label>
 
-            <!--Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:calendar="nativescript-pro-ui/calendar" loaded="pageLoaded">
-                <ActionBar title="RadCalendar Demo" class="action-bar" />
-                <calendar:RadCalendar id="myCalendar" eventSource="{{ events }}" />
-            </Page-->
+            <Label text='Phone:' class="h2 m-l-10" textwrap=true></Label>
+            <Label [text]='branch.phone' class="h3 m-l-10" textwrap=true></Label>
 
         </StackLayout>
 
         <StackLayout *tabItem="{title: 'Reserve'}">
 
+            <ListView [items]="rooms" class="page page-content">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+
+                    <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./organization', item.id]">
+                        <StackLayout orientation="Horizontal">
+
+                            <StackLayout orientation="Vertical">
+                                <label text="{{ 'Room Number ' + (i + 1) }}" class = "h2 m-l-20 " style="text-align: center" width = "100%"></label>
+                                
+                                <label text = 'Services :' class="h3 m-l-20" style="font-weight: bold"></label>
+                                <Label [text]='item.services' class="h4 m-l-20"></Label>
+
+                                <label text = 'Capacity :' class="h3 m-l-20" style="font-weight: bold"></label>
+                                <Label [text]='item.capacity' class="h4 m-l-20"></Label>
+
+                                <label text = 'Price:' class="h3 m-l-20" style="font-weight: bold"></label>
+                                <Label [text]='item.price' class="h4 m-l-20"></Label>
+
+                            </StackLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+
+                </ng-template>
+            </ListView>
 
         </StackLayout>
 
-
-        
     </TabView>
 
 </RadSideDrawer>

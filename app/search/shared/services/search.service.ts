@@ -152,4 +152,26 @@ export class SearchService {
         })
     }
 
+    getRooms(workspaceId: number, branchId: number) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("token-type", "Bearer");
+
+
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }
+
+        //https://ccampus.herokuapp.com/api/branches
+        return this.http.get(this.baseUrl + "/api/workspaces/" + workspaceId + "/branches/" + branchId + "/rooms", {
+            headers: headers
+        })
+    }
+
 }
