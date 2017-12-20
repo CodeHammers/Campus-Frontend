@@ -134,7 +134,7 @@ export class OrganizationComponent implements OnInit {
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
-    subscribe(){
+    subscribeOrg(){
 
         console.log("The user has subscribed to the organization");
 
