@@ -47,6 +47,22 @@ it shouldn't have any other siblings other than the <ActionBar> component.
             <Label text='Phone:' class="h2 m-l-10" textwrap=true></Label>
             <Label [text]='branch.phone' class="h3 m-l-10" textwrap=true></Label>
 
+
+            <TextField hint="your constructive review" [(ngModel)]="feedback"></TextField>
+            <Button text="Add Review" (tap)="post_review_for_org()" ></Button>
+            <ListView [items]="reviews" >
+                <ng-template let-item="item" let-odd="odd" let-even="even">
+                  <StackLayout>
+                      <StackLayout orientation="horizontal">
+                            <Image [src]="item.userimage"></Image>
+                            <label [text]="item.username"></label>
+                      </StackLayout>
+                    <Label [text]="item.feedback" style="margin-right:9" ></Label>
+                    
+                  </StackLayout>
+                </ng-template>
+            </ListView>
+
         </StackLayout>
 
         <StackLayout *tabItem="{title: 'Reserve'}">
@@ -54,7 +70,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
             <ListView [items]="rooms" class="page page-content">
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                    <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./organization', item.id]">
+                    <StackLayout [class.odd]="odd" [class.even]="even">
                         <StackLayout orientation="Horizontal">
 
                             <StackLayout orientation="Vertical">

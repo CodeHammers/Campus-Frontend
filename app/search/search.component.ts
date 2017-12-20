@@ -9,6 +9,7 @@ import { SearchBar } from "ui/search-bar";
 import { SearchService } from "./shared/services/search.service"
 
 import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { setNumber, getNumber } from "tns-core-modules/application-settings/application-settings";
 
 @Component({
     moduleId: module.id,
@@ -116,6 +117,23 @@ export class SearchComponent implements OnInit {
             this.showSimple("No Internet Connection Found...");
         });
 
+    }
+
+    tranfertow(id: number){
+        console.log("-----------------><---------------")
+        console.log("tranferred to workspace")
+        setNumber("current_w",id);
+        console.log(getNumber("current_w",0))
+        console.log("-----------------<>---------------")
+        
+    }
+
+    tranfertoo(id: number){
+        console.log("-----------------><---------------")        
+        console.log("tranferred to workspace")        
+        setNumber("current_o",id);
+        console.log(getNumber("current_o",0))        
+        console.log("-----------------<>---------------")        
     }
 
     searchOrganiztion(args) {

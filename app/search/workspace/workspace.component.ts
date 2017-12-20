@@ -7,6 +7,7 @@ import { ActivatedRoute } from "@angular/router";
 import { SearchService } from "../shared/services/search.service"
 import { Branch } from "../shared/classes/branch"
 import { Workspace } from "../shared/classes/workspaces";
+import { getNumber, setNumber } from "tns-core-modules/application-settings/application-settings";
 
 
 @Component({
@@ -35,10 +36,18 @@ export class WorkspaceComponent implements OnInit {
     /* ***********************************************************
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
+
+    transfertobranch(id: number){
+        console.log("-----------------><---------------")
+        console.log("tranferred to branch")
+        setNumber("current_b",id);
+        console.log(getNumber("current_b",0))
+        console.log("-----------------<>---------------")
+    }
     ngOnInit(): void {
         console.log("ngInit started, the id =");
-        this.workspace_id = this.route.snapshot.params["id"];
-
+        this.workspace_id = getNumber("current_w",this.route.snapshot.params["id"])
+        
         this.search_service.getWorkspaceInfo(this.workspace_id)
             .subscribe((res) => {
 

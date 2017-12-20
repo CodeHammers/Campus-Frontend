@@ -44,7 +44,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                 
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                    <StackLayout [class.odd]="odd" [class.even]="even"  [nsRouterLink]="['./workspaces', item.id]">
+                    <StackLayout [class.odd]="odd" [class.even]="even" (tap) = "tranfertow(item.id)"  [nsRouterLink]="['./workspaces', item.id]">
                         <StackLayout orientation="Horizontal" >
                             <Image [src]= 'item.imagelink' width="40" height="40"></Image>
                             <StackLayout orientation="Vertical" >
@@ -71,7 +71,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                    <StackLayout [class.odd]="odd" [class.even]="even" [nsRouterLink]="['./organization', item.id]" >
+                    <StackLayout [class.odd]="odd" [class.even]="even"   (tap) = "tranfertoo(item.id)" [nsRouterLink]="['./organization', item.id]" >
                             <StackLayout orientation="Horizontal" >
                                     <Image [src]= 'item.imagelink' width="40" height="40"></Image>
                                     <StackLayout orientation="Vertical">

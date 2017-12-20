@@ -11,13 +11,16 @@ import { BranchComponent } from "./branch/branch.component"
 
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
+import {NativeScriptFormsModule} from "nativescript-angular/forms"
+
 
 @NgModule({
     imports: [
         NativeScriptModule,
         SharedModule,
         NativeScriptHttpModule,
-        SearchRoutingModule
+        SearchRoutingModule,
+        NativeScriptFormsModule
     ],
     declarations: [
         SearchComponent,
