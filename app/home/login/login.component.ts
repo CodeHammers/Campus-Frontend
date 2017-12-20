@@ -82,7 +82,8 @@ export class LoginComponent  implements OnInit {
                     console.log(self);
                     self.login_service.saveImageToImgur(imageSource.toBase64String("jpg"))
                     .subscribe( (res)=>{
-                        console.log(JSON.stringify(res));
+                        console.log(JSON.stringify(res["_body"]["data"]["link"] ) );
+                        self.newuser.logo = res["_body"]["data"]["link"];
                     } )
                     //imageSrc.src = imageSource;
                 });
@@ -105,7 +106,10 @@ export class LoginComponent  implements OnInit {
             setString("userdata",JSON.stringify(message));
             setString("userheaders",JSON.stringify(res.headers));
             
-            this.routerExtensions.navigate(["home/profile"]);
+            if(message["nickname"]==null||message["nickname"]=="")
+                this.routerExtensions.navigate(["home/profile"]);
+            else
+                this.routerExtensions.navigate(["home/admin"]);
       
         }, (error) => {
             console.log("shit happen !");
@@ -136,9 +140,9 @@ export class LoginComponent  implements OnInit {
 
         this.login_service.signUp(this.newuser)
         .subscribe((res) => {
-            let message = res.data;
+            let message = res["_body"];
             console.log("reached SignUp")
-            console.log(this.newuser.email)
+            //console.log(this.newuser.email)
             console.log(JSON.stringify(message))
             setString("userdata",JSON.stringify(message));
             this.routerExtensions.navigate(["home/profile"]);

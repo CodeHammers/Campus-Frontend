@@ -31,8 +31,9 @@ export class LoginService {
       let headers = new Headers();
       headers.append("Content-Type", "application/json");
 
-     return this.http.post(this.baseUrl, { email: user.email,password: user.password,image: user.logo }, {headers:headers})
-        .map(res => res.json());
+      console.log(JSON.stringify(user))
+     return this.http.post("https://ccampus.herokuapp.com/api/users", { email: user.email,pd: user.password,image: user.logo ,name:user.name}, {headers:headers})
+    
 
     }
 
@@ -50,7 +51,7 @@ export class LoginService {
         let data ={
             pd: np
         }
-        return  this.http.put("https://ccampus.herokuapp.com/api/users/"+id,data,{headers: headers});
+        return  this.http.put("https://ccampus.herokuapp.com/api/users"+id,data,{headers: headers});
         
 
     }

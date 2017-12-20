@@ -23,8 +23,8 @@ export class MyDrawerComponent implements OnInit {
     @Input() selectedPage: string;
 
     ngOnInit(): void {
-        //this.logo_url = "https://avatars0.githubusercontent.com/u/26489087?s=400&v=4";
-        this.logo_url = "https://scontent-cai1-1.xx.fbcdn.net/v/t1.0-9/22405387_1440232679427453_4319570387214555074_n.jpg?oh=35e277f177a5b54d00cd2c89b563be58&oe=5AC238DB";
+        this.logo_url = "https://avatars0.githubusercontent.com/u/26489087?s=400&v=4";
+        //this.logo_url = "https://scontent-cai1-1.xx.fbcdn.net/v/t1.0-9/22405387_1440232679427453_4319570387214555074_n.jpg?oh=35e277f177a5b54d00cd2c89b563be58&oe=5AC238DB";
         if(getString("userdata","none")!="none"){
 
             //image

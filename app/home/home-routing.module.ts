@@ -4,10 +4,12 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { HomeComponent } from "./home.component";
 import { LoginComponent } from "./login/login.component";
+import { AdminComponent } from "./admin/admin.component"
 
 const routes: Routes = [
     { path: "login", component: LoginComponent },
-    { path: "profile", component: HomeComponent }
+    { path: "profile", component: HomeComponent },
+    { path: "admin",component: AdminComponent}
 ];
 
 @NgModule({

@@ -30,10 +30,10 @@
 
             <!--TO-DO change css classes-->
             <Label class="InfoLabels" text="Username:" textWrap="true"></Label>
-            <TextField class="InputTextFields" hint="Please enter your name" autocorrect="false" text="" autocapitalizationType="words"></TextField>
+            <TextField class="InputTextFields"  [(ngModel)]="newuser.name" hint="Please enter your name" autocorrect="false" text="" autocapitalizationType="words"></TextField>
 
             <Label class="InfoLabels" text="Phone:" textWrap="true"></Label>
-            <TextField class="InputTextFields" hint="Please enter your phone number" autocorrect="false" keyboardType="Phone" text=""
+            <TextField class="InputTextFields"  [(ngModel)]="newuser.phone" hint="Please enter your phone number" autocorrect="false" keyboardType="Phone" text=""
                 autocapitalizationType="none"></TextField>
 
 
