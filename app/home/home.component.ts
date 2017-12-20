@@ -11,6 +11,7 @@ import { User } from "./shared/classes/user";
 
 import { LoginService } from "./shared/services/login.service"
 import { Organization } from "../search/shared/classes/organization";
+import { Card } from "./shared/classes/card";
 
 
 @Component({
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
     public login_service: LoginService;
 
     public favouriteOrgs: Array<Organization>;
+    public cards: Array<Card>;
     /* ***********************************************************
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
@@ -68,6 +70,15 @@ export class HomeComponent implements OnInit {
         this.favouriteOrgs.push(new Organization(3, "test_name_4", "Cairo4", "The worst of course", null));
         console.log("Added 4 orgs");
         console.log(this.favouriteOrgs.length);
+
+        this.cards = [];
+
+        this.cards.push(new Card("IEEE Created Workshop","M.I",null));
+        this.cards.push(new Card("FabLab Created Workshop","M.U",null));
+        this.cards.push(new Card("Makan Created Workshop","M.Z",null));
+        this.cards.push(new Card("Ana Created Workshop","M.T",null));
+        console.log("Added 4 Cards");
+        console.log(this.cards.length);
 
     }
 
