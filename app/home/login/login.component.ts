@@ -122,20 +122,27 @@ export class LoginComponent  implements OnInit {
 
     SignUp(){
 
+    
+        if(this.newuser.name == null){
+            console.log("Didn't enter a user name");
+            console.log(this.newuser.name);
+            this.showSimple("Please enter a name, it is a must!");
+            return;
+        }
+
         if(this.newuser.password.length < 8){
             console.log("entered in valid password less than 8 chars");
             console.log(this.newuser.password);
-            this.showSimple("Password length is less than 8");
+            this.showSimple("Password length is less than 8!");
             return;
         }
 
         if(this.newuser.password != this.newuser.passwordCheck){
             console.log("Password doesn't match");
             console.log(this.newuser.password + " " + this.newuser.passwordCheck);
-            this.showSimple("Passwords doesn't match");
+            this.showSimple("Passwords doesn't match!");
             return;
         }
-
 
 
         this.login_service.signUp(this.newuser)
