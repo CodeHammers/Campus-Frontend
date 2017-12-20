@@ -267,4 +267,8 @@ export class SearchService {
         })
     }
 
+    subscribe(organizationId: number){
+        console.log(organizationId);
+    }
+
 }

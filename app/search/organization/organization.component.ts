@@ -134,6 +134,14 @@ export class OrganizationComponent implements OnInit {
         this._sideDrawerTransition = new SlideInOnTopTransition();
     }
 
+    subscribe(){
+
+        console.log("The user has subscribed to the organization");
+
+        this.search_service.subscribe(this.organiztion_id);
+
+    }
+
     constructor(private ss: SearchService, private route: ActivatedRoute) {
         this.search_service = ss;
     }

@@ -38,6 +38,8 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
         <Image [src]='organization.imagelink' width="100%" height="100"></Image>
 
+        <button text ="Subscribe" class="submit-button" (tap)="subscribe()"></button>
+
         <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton>
 
             <ScrollView *tabItem="{title: 'Info'}">
