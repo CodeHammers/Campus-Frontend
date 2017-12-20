@@ -37,7 +37,7 @@ export class BranchComponent implements OnInit {
 
     
     post_review_for_org(){
-        this.search_service.post_review_for_org(this.branch_id,this.feedback)
+        this.search_service.post_review_for_bra(this.workspace_id,this.branch_id,this.feedback)
         .subscribe((res) => {
             let data = res;
             console.log( data.headers.get("Access-Token"))
@@ -117,7 +117,7 @@ export class BranchComponent implements OnInit {
 
 
 
-        this.search_service.get_reviews_for_org(this.workspace_id)
+        this.search_service.get_reviews_for_bra(this.workspace_id,this.branch_id)
         .subscribe((res) => {
             this.reviews=[];
             console.log(JSON.stringify(res))

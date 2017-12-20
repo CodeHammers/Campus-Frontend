@@ -54,10 +54,12 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                 <ng-template let-item="item" let-odd="odd" let-even="even">
                   <StackLayout>
                       <StackLayout orientation="horizontal">
-                            <Image [src]="item.userimage"></Image>
-                            <label [text]="item.username"></label>
+                            <Image width="50" height="50" [src]="item.userimage"></Image>
+                            <StackLayout>
+                                <label [text]="item.username"></label>      
+                                <Label [text]="item.feedback" style="margin-right:9" ></Label>                                            
+                            </StackLayout>
                       </StackLayout>
-                    <Label [text]="item.feedback" style="margin-right:9" ></Label>
                     
                   </StackLayout>
                 </ng-template>
