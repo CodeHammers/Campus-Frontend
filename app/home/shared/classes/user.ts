@@ -4,7 +4,7 @@ export class User{
     password: string;
     logo: string;
     passwordCheck: string;
-
+    id: number
     name: string;
 
     constructor(mail: string,password: string,passwordCheck: string){

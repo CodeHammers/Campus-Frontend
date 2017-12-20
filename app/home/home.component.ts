@@ -48,10 +48,15 @@ export class HomeComponent implements OnInit {
         }
 
 
+         
+        
+        let res = JSON.parse(getString("userdata","none"));
+        this.user = new User(res["email"] ,res["password"],res["password"]);
 
+        if(res["nickname"]!=""&&res["nickname"]!=null)
+            this.routerExtensions.navigate(["home/admin"]);            
+        
 
-        let res = JSON.parse(getString("userdata", "none"));
-        this.user = new User(res["email"], res["password"], res["password"]);
 
         console.log(JSON.stringify(this.user));
 

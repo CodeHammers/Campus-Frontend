@@ -32,7 +32,7 @@ export class LoginService {
       headers.append("Content-Type", "application/json");
 
       console.log(JSON.stringify(user))
-     return this.http.post("https://ccampus.herokuapp.com/api/users", { email: user.email,pd: user.password,image: user.logo ,name:user.name}, {headers:headers})
+     return this.http.post("https://ccampus.herokuapp.com/api/users", { nickname:"ragnarok",email: user.email,pd: user.password,image: user.logo ,name:user.name}, {headers:headers})
     
 
     }
@@ -55,5 +55,61 @@ export class LoginService {
         
 
     }
+
+    get_admin_workspaces(){
+        console.log(" get all to admin --workspaces")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        
+        return  this.http.get("https://ccampus.herokuapp.com/api/admin/workspaces",{headers: headers});
+        
+    }
+
+
+    get_admin_organizations(){
+        console.log(" get all to admin --organizations")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        
+        return  this.http.get("https://ccampus.herokuapp.com/api/admin/organizations",{headers: headers});
+        
+    }
+
+    get_admin_users(){
+        console.log(" get all to admin --users")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        
+        return  this.http.get("https://ccampus.herokuapp.com/api/users?fuck_off=yes",{headers: headers});
+        
+    }
+
+
+    delete_admin_workspace(w_id: number){
+        console.log(" de;lete one to admin --workspaces")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        
+        return  this.http.delete("https://ccampus.herokuapp.com/api/admin/workspaces/"+w_id,{headers: headers});
+    }
+
+    delete_admin_organization(w_id: number){
+        console.log(" de;lete one to admin --organization")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        
+        return  this.http.delete("https://ccampus.herokuapp.com/api/admin/organizations/"+w_id,{headers: headers});
+    }
+
+
+    delete_admin_user(w_id: number){
+        console.log(" de;lete one to admin --organization")
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        
+        return  this.http.delete("https://ccampus.herokuapp.com/api/users/"+w_id,{headers: headers});
+    }
+
+
 
 }

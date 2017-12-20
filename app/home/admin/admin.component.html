@@ -8,7 +8,7 @@
     -->
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Home"></Label>
+    <Label class="action-bar-title" text="Admin"></Label>
 </ActionBar>
 
 <!--
@@ -29,8 +29,98 @@ it shouldn't have any other siblings other than the <ActionBar> component.
     <!--
     Use the tkMainContent directive to display the content of the page when you have an app drawer.
     -->
-    <StackLayout class="page page-content" tkMainContent>
-        <Label  text="You are the boss"></Label>
 
-    </StackLayout>
+
+    
+
+
+
+
+    <TabView  sdkExampleTitle sdkToggleNavButton tkMainContent>
+
+            <StackLayout class="page page-content"   *tabItem="{title: 'Workspaces'}">
+                <TextView text="Admin Authority Granted" editable="false"></TextView>
+                <TextView  [(ngModel)]="no_of_workspaces" editable="false"></TextView>
+                
+        
+                <ListView [items]="workspaces" class="page page-content" height="100%">
+                    
+                    
+                    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+        
+                        <StackLayout orientation="horizontal" style="margin-bottom:20;padding-bottom:10">
+                            <Image width="60" height="60" [src]="item.imagelink"></Image>
+                            <StackLayout width="60%" style="padding-left:5">
+                                <label [text]="item.name"  ></label>      
+                            </StackLayout>
+                            <button  (tap)="deleteWorkspace(item.id)" style="background-color:#337ab7;color:white" text="remove"></button>
+                        </StackLayout>
+        
+                    </ng-template>
+        
+                </ListView>
+        
+            </StackLayout>
+
+            
+
+            <StackLayout class="page page-content"   *tabItem="{title: 'Organizations'}" >
+                <TextView text="Admin Authority Granted" editable="false"></TextView>
+                <TextView  [(ngModel)]="no_of_organizations" editable="false"></TextView>
+                
+        
+                <ListView [items]="organizations" class="page page-content" height="100%">
+                    
+                    
+                    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+        
+                        <StackLayout orientation="horizontal" style="margin-bottom:20;padding-bottom:10">
+                            <Image width="60" height="60" [src]="item.imagelink"></Image>
+                            <StackLayout width="60%" style="padding-left:5">
+                                <label [text]="item.name"  ></label>      
+                            </StackLayout>
+                            <button  (tap)="deleteOrganization(item.id)" style="background-color:#337ab7;color:white" text="remove"></button>
+                        </StackLayout>
+        
+                    </ng-template>
+        
+                </ListView>
+        
+            </StackLayout>
+
+
+            <StackLayout class="page page-content"   *tabItem="{title: 'Users'}" >
+                <TextView text="Admin Authority Granted" editable="false"></TextView>
+                <TextView  [(ngModel)]="no_of_users" editable="false"></TextView>
+                
+        
+                <ListView [items]="users" class="page page-content" height="100%">
+                    
+                    
+                    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                        
+                        <StackLayout orientation="horizontal" style="margin-bottom:20;padding-bottom:10">
+                            <Image width="60" height="60" [src]="item.imagelink"></Image>
+                            <StackLayout width="60%" style="padding-left:5">
+                                <label [text]="item.name"  ></label>      
+                            </StackLayout>
+                            <button  (tap)="deleteUser(item.id)" style="background-color:#337ab7;color:white" text="remove"></button>
+                        </StackLayout>
+                    
+
+                    </ng-template>
+        
+                </ListView>
+        
+            </StackLayout>
+
+
+
+
+
+
+
+
+       
+    </TabView>
 </RadSideDrawer>
