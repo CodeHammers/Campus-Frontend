@@ -49,7 +49,7 @@ updated_at	"2017-12-17T04:06:38.764Z"
 
 
         <!--############################### tab 1   ######################### -->
-<
+
 
         <StackLayout *tabItem="{title: 'Profile'}">
             <StackLayout  orientation="horizontal">
@@ -71,6 +71,11 @@ updated_at	"2017-12-17T04:06:38.764Z"
                 <Button text="update" style="background-color:#337ab7;color:white"  (tap)="updateOrganization()" ></Button>            
                 
             </StackLayout>
+            <TextView [text]="'subscription: '+ sub_count" editable="false"></TextView>
+            <TextView [text]="'average Rating: '+ avg_review" editable="false"></TextView>
+            <TextView [text]="'Number of workshops held: '+ workshops.length" editable="false"></TextView>
+            
+            
         </StackLayout>
 
     

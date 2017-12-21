@@ -465,6 +465,32 @@ branch_id	15
 
     }
 
+    get_sub_cont_for_org(org_id:number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        return this.http.get(this.baseUrl+"/api/organizations/"+org_id+"/subs",{headers: headers})
+     /*
+     organizations/:id/subs'
+     */   
+    }
+    get_avg_rating_for_org(org_id:number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        return this.http.get(this.baseUrl+"/api/organizations/"+org_id+"/reviews",{headers: headers})
+     /*
+     organizations/:id/subs'
+     */   
+    }
+
+    get_avg_rating_for_b(b_id:number){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        return this.http.get(this.baseUrl+"/api/branches/"+b_id+"/reviews",{headers: headers})
+     /*
+     organizations/:id/subs'
+     */   
+    }
+
 
     
 

@@ -242,7 +242,7 @@ export class SearchService {
     }
 
 
-    post_review_for_bra(w_id: number,b_id: number  , feedback:string){
+    post_review_for_bra(w_id: number,b_id: number  , feedback:string,rating:number){
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("token-type", "Bearer");
@@ -258,7 +258,7 @@ export class SearchService {
         }
         let data ={
             feedback: feedback,
-            rating: 5
+            rating: rating
         }
 
         //https://ccampus.herokuapp.com/api/branches
@@ -268,7 +268,23 @@ export class SearchService {
     }
 
     subscribe(organizationId: number){
-        console.log(organizationId);
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("token-type", "Bearer");
+
+        //the header part won't change at all in all incoming services
+        //you can just copy and paste 
+        //those headers are for verifiying the identity of the user on the server
+        if (getString("userheaders", "none") != "none") {
+            console.log("parsing ......");
+            headers.append("access-token", JSON.parse(getString("userheaders", "none"))["Access-Token"]);
+            headers.append("client", JSON.parse(getString("userheaders", "none")).Client);
+            headers.append("uid", JSON.parse(getString("userheaders", "none")).Uid);
+        }
+
+        return this.http.post(this.baseUrl + "/api/organizations/" + organizationId +"/subscribe", {},{
+            headers: headers
+        })
     }
 
 }

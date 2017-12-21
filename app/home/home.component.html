@@ -40,9 +40,18 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
         <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton>
             <StackLayout *tabItem="{title: 'News Feed'}">
-
-                <TextField hint="new password" secure="true" [(ngModel)]="pass"></TextField>
-                <Button text="Update Password" (tap)="updatePassword()"></Button>
+                <StackLayout orientation="horizontal">
+                    <Image [src]="logo_url" width="100" height="100"></Image>
+                    
+                    <StackLayout>
+                            <TextView [text]="'subscriptions: '+sub_c" editable="false"></TextView>
+                            
+                            <TextField hint="new password" secure="true" [(ngModel)]="pass"></TextField>
+                            <Button text="Update Password" (tap)="updatePassword()"></Button>
+                        </StackLayout>
+                </StackLayout>
+            
+                
 
                 <ListView [items]="cards" class="page page-content">
 
@@ -75,7 +84,7 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
                     <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
 
-                        <StackLayout [class.odd]="odd" [class.even]="even" (tap)="tranfertoo(item.id)" [nsRouterLink]="['./organization', item.id]">
+                        <StackLayout [class.odd]="odd" [class.even]="even" >
                             <StackLayout orientation="Horizontal">
                                 <StackLayout orientation="Vertical">
                                     <Label [text]='item.name' class="list-item h2 m-l-10"></Label>

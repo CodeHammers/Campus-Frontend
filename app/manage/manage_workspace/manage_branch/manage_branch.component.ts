@@ -26,6 +26,11 @@ export class ManageBranchComponent implements OnInit {
     public room : Room;
     public rooms : Array<Room>;
 
+    avg_review: number;
+
+
+
+
     constructor(private m_service: ManageService){
         this.manage_service = m_service;
         this.branch = new Branch("","",1,1);
@@ -41,6 +46,26 @@ export class ManageBranchComponent implements OnInit {
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
     ngOnInit(): void {
+
+
+       
+
+        this.manage_service.get_avg_rating_for_b(getNumber("bbb_id",0))
+        .subscribe((res)=>{
+            console.log("--------------------------------rrrrrrrr--------------------")
+            console.log("retreived Count successfully")
+            console.log(JSON.stringify(res))
+            this.avg_review = res["_body"]["count"]
+            console.log("recieved avg rating")
+            if(this.avg_review==null)
+               this.avg_review=10
+        },(error)=>{
+            console.log("--------------------------------rrrrrrrr--------------------")
+            
+            console.log(error)
+        })       
+        
+  
         console.log("reached branch")
         console.log(getNumber("bbb_id",0));
 

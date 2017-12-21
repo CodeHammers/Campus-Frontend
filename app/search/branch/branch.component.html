@@ -49,6 +49,8 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
 
             <TextField hint="your constructive review" [(ngModel)]="feedback"></TextField>
+            <TextField hint="Rating" [(ngModel)]="rating"></TextField>
+            
             <Button text="Add Review" (tap)="post_review_for_org()" ></Button>
             <ListView [items]="reviews" >
                 <ng-template let-item="item" let-odd="odd" let-even="even">

@@ -116,6 +116,31 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
 
 
+            <StackLayout class="page page-content"   *tabItem="{title: 'Admins'}" >
+                    <TextView text="Admin Authority Granted" editable="false"></TextView>
+                    <StackLayout orientation="horizontal" >
+                        <TextField hint="email" width="71%"   [(ngModel)]="email"></TextField>
+                        <Button text="Grant Access" (tap)="add_admin()"></Button>
+                    </StackLayout>        
+            
+                    <ListView [items]="admins" class="page page-content" height="100%">
+                        
+                        
+                        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                            
+                            <StackLayout >
+                                    <label [text]="item"  ></label>      
+                                
+                            </StackLayout>
+                        
+    
+                        </ng-template>
+            
+                    </ListView>
+            
+                </StackLayout>
+
+
 
 
 

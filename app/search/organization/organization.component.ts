@@ -136,9 +136,33 @@ export class OrganizationComponent implements OnInit {
 
     subscribeOrg(){
 
-        console.log("The user has subscribed to the organization");
+        console.log("The user is being subscribed to the organization");
 
-        this.search_service.subscribe(this.organiztion_id);
+
+        this.search_service.subscribe(this.organiztion_id)
+        .subscribe(
+            (data)=>{
+                console.log("success subscribe")
+                console.log(JSON.stringify(data))
+                console.log( data.headers.get("Access-Token"))
+                if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){
+                    console.log("update token");
+                    console.log(JSON.stringify( data.headers ) )
+                    setString("userheaders",JSON.stringify(data.headers));                
+                }
+            },
+            (error)=>{
+                let data = error;
+                console.log( data.headers.get("Access-Token"))
+                if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){
+                    console.log("update token");
+                    console.log(JSON.stringify( data.headers ) )
+                    setString("userheaders",JSON.stringify(data.headers));                
+                }
+                console.log("error in subscribe")
+                console.log(error)
+            }
+        )
 
     }
 

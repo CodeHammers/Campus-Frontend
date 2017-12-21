@@ -38,6 +38,8 @@ import  { Organization } from "../shared/classes/organization"
 })
 export class AdminComponent  implements OnInit {
 
+
+    public email :string
     public no_of_workspaces : string;
     public no_of_organizations: string;
     public no_of_users : string;
@@ -46,6 +48,9 @@ export class AdminComponent  implements OnInit {
     public workspaces: Array<Workspace>;
     public organizations: Array<Organization>;
     public users : Array<Workspace>;
+    public admins : Array<string>
+    public admin_images: Array<string>
+
     ngOnInit(): void {
      this.login_service.get_admin_workspaces()
      .subscribe(
@@ -105,12 +110,49 @@ export class AdminComponent  implements OnInit {
             console.log(error)
          }
      )
+
+
      
+     this.login_service.get_admin_users()
+     .subscribe(
+         (data)=>{
+             console.log("------------------------.........................----------------------")
+            
+            console.log("success ret ,admin users")
+            data["_body"].forEach(w => {
+             console.log(JSON.stringify(data))                
+                if( w.image !=null)
+                this.admin_images.push(w.image)
+                else
+                this.admin_images.push("http://cohenwoodworking.com/wp-content/uploads/2016/09/image-placeholder-500x500.jpg")
+
+                this.admins.push( w.name )
+            });
+         },
+         (error)=>{
+            console.log("shit japen")
+            console.log(error)
+         }
+     )
         
         
     }
 
-    
+    add_admin(){
+        this.login_service.make_admin(this.email)
+        .subscribe(
+            (data)=>{
+               console.log("added admin")
+               console.log(JSON.stringify(data))
+            
+            },
+            (error)=>{
+               console.log("shit japen")
+               console.log(error)
+            }
+        )
+
+    }
 
     deleteWorkspace(w_id:number){
         console.log("deleting >....")

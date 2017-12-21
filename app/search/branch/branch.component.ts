@@ -21,7 +21,7 @@ import { Review  } from "../shared/classes/review"
 
 export class BranchComponent implements OnInit {
 
-
+    public rating : number;
     public search_service: SearchService;
     public loading_data: boolean;
     public branch_id: number;
@@ -37,7 +37,7 @@ export class BranchComponent implements OnInit {
 
     
     post_review_for_org(){
-        this.search_service.post_review_for_bra(this.workspace_id,this.branch_id,this.feedback)
+        this.search_service.post_review_for_bra(this.workspace_id,this.branch_id,this.feedback,this.rating)
         .subscribe((res) => {
             let data = res;
             console.log( data.headers.get("Access-Token"))

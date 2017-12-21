@@ -34,6 +34,9 @@ export class ManageOrganizationComponent implements OnInit {
     public managers: Array<Manager>
     email: string;
 
+    avg_review: number;
+    sub_count: number;
+
     constructor(private m_service: ManageService,private route: ActivatedRoute){
         this.manage_service = m_service;
         this.org = new Organization(0,"");
@@ -213,6 +216,35 @@ export class ManageOrganizationComponent implements OnInit {
         this._sideDrawerTransition = new SlideInOnTopTransition();
         let id = +this.route.snapshot.params["id"];
         id=  getNumber("sp_id",0)
+
+        this.manage_service.get_sub_cont_for_org(id)
+        .subscribe((res)=>{
+            console.log("--------------------------------rrrrrrrr--------------------")
+            console.log("retreived Count successfully")
+            console.log(JSON.stringify(res))
+            this.sub_count = res["_body"]["count"]
+
+        },(error)=>{
+            console.log("--------------------------------rrrrrrrr--------------------")
+            
+            console.log(error)
+        })       
+        
+        this.manage_service.get_avg_rating_for_org(id)
+        .subscribe((res)=>{
+            console.log("--------------------------------rxxxxxxxxxxxxxx--------------------")
+            console.log("retreived Count successfully")
+            console.log(JSON.stringify(res))
+            this.avg_review = res["_body"]["count"]
+            if(this.avg_review==null)
+                this.avg_review=10
+
+        },(error)=>{
+            console.log("--------------------------------rxxxxxxxxxxxxxxxxxxxxr--------------------")
+            
+            console.log(error)
+        })   
+
         //console.log("this is how  you repay me!",id,"this is how you repay my love!")       
         this.manage_service.getOrganization(id)
         .subscribe((res)=>{
@@ -235,7 +267,7 @@ export class ManageOrganizationComponent implements OnInit {
                 this.org.desc = "Description Field is missing ,fill it please"
 
         },(error)=>{
-
+            console.log(error)
         })        
 
 

@@ -51,6 +51,9 @@
                     <Button text="update" style="background-color:#337ab7;color:white"  (tap)="update_branch()" ></Button>            
                     
                 </StackLayout>
+                <TextView [text]="'average Rating: '+ avg_review" editable="false"></TextView>
+                <TextView [text]="'Number of Rooms: '+ rooms.length" editable="false"></TextView>
+                
             </StackLayout>
     
 
