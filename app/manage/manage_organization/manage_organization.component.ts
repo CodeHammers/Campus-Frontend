@@ -12,6 +12,7 @@ import { DatePicker } from "ui/date-picker";
 import { EventData } from "data/observable";
 import  { Event  } from "../shared/classes/event"
 
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
 
 
 @Component({
@@ -51,7 +52,14 @@ export class ManageOrganizationComponent implements OnInit {
     /* ***********************************************************
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
-
+    /// Show a simple snackbar with no actions
+    showSimple(msg: string) {
+        // Create an instance of SnackBar
+        let snackbar = new SnackBar();
+        snackbar.simple(msg, 'white', '#222').then((args) => {
+                //this.set('jsonResult', JSON.stringify(args));
+        })
+    }
 
 
 
@@ -63,6 +71,8 @@ export class ManageOrganizationComponent implements OnInit {
             //if new token introduced ,update my token
             console.log("delete granted")
             console.log("workshops Saved Success")
+
+            this.showSimple("Workshope Deleted!")
             
             console.log( data.headers.get("Access-Token"))
             if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
@@ -72,6 +82,7 @@ export class ManageOrganizationComponent implements OnInit {
             }
 
         }, (error) => {
+            this.showSimple("something Went Wrong")
 
             let data = error;
             console.log( data.headers.get("Access-Token"))
@@ -93,9 +104,11 @@ export class ManageOrganizationComponent implements OnInit {
             //token exhange 
             //if new token introduced ,update my token
             console.log("Accesss granted")
+            this.showSimple("Access Granted !")
                         
 
         }, (error) => {
+            this.showSimple("Something Went wrong")
             console.log("shit happen !");
              console.log(error);
         });
@@ -148,6 +161,7 @@ export class ManageOrganizationComponent implements OnInit {
             console.log(JSON.stringify(data));
             //token exhange 
             //if new token introduced ,update my token
+            this.showSimple("Event Added")
             console.log("workshops Saved Success")
 
             console.log( data.headers.get("Access-Token"))
@@ -180,7 +194,7 @@ export class ManageOrganizationComponent implements OnInit {
             //token exhange 
             //if new token introduced ,update my token
             console.log("workshops Saved Success")
-
+            this.showSimple("Workshop added!")
             console.log( data.headers.get("Access-Token"))
             if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
                 console.log("update token");
@@ -190,6 +204,7 @@ export class ManageOrganizationComponent implements OnInit {
             
 
         }, (error) => {
+            this.showSimple("Something Went Wrong")
             console.log("shit happen !");
             console.log(getString("userheaders","none"))
             setString("userheaders","none");
@@ -356,6 +371,7 @@ export class ManageOrganizationComponent implements OnInit {
         
     }
     browseForImage(){
+        this.showSimple("processing your image ,please wait")
         let self = this;
         let context = imagepicker.create({
             mode: "single" // use "multiple" for multiple selection
@@ -373,6 +389,8 @@ export class ManageOrganizationComponent implements OnInit {
                     //console.log(imageSource.toBase64String("jpg"));
                     self.manage_service.saveImageToImgur(imageSource.toBase64String("jpg"))
                     .subscribe( (res)=>{
+
+                        this.showSimple("processing Finished")
                         console.log("print link")
                         console.log( JSON.stringify( res.json()["data"]["link"]) );
                         self.org.logo =  res.json()["data"]["link"];

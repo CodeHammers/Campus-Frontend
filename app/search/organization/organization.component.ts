@@ -11,6 +11,8 @@ import { Review  } from "../shared/classes/review"
 import { getNumber, setString } from "tns-core-modules/application-settings/application-settings";
 
 
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+
 
 @Component({
     moduleId: module.id,
@@ -41,6 +43,18 @@ export class OrganizationComponent implements OnInit {
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
 
+
+    /// Show a simple snackbar with no actions
+    showSimple(msg: string) {
+        // Create an instance of SnackBar
+        let snackbar = new SnackBar();
+        snackbar.simple(msg, 'white', '#222').then((args) => {
+                //this.set('jsonResult', JSON.stringify(args));
+        })
+    }
+
+
+
     post_review_for_org(){
         this.search_service.post_review_for_org(this.organiztion_id,this.feedback)
         .subscribe((res) => {
@@ -51,9 +65,11 @@ export class OrganizationComponent implements OnInit {
                 console.log(JSON.stringify( data.headers ) )
                 setString("userheaders",JSON.stringify(data.headers));                
             }
+            this.showSimple("Review Posted!")
             console.log(JSON.stringify(res) );
             console.log("reveiw granted")
         }, (error) => {
+            this.showSimple("Something Went Wrong")
             let data = error;
             console.log( data.headers.get("Access-Token"))
             if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){
@@ -144,6 +160,7 @@ export class OrganizationComponent implements OnInit {
             (data)=>{
                 console.log("success subscribe")
                 console.log(JSON.stringify(data))
+                this.showSimple("Subscribed!")
                 console.log( data.headers.get("Access-Token"))
                 if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){
                     console.log("update token");
@@ -152,6 +169,7 @@ export class OrganizationComponent implements OnInit {
                 }
             },
             (error)=>{
+                this.showSimple("something Went Wrong")
                 let data = error;
                 console.log( data.headers.get("Access-Token"))
                 if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){

@@ -11,6 +11,8 @@ import { getNumber, setString } from "tns-core-modules/application-settings/appl
 
 import { Review  } from "../shared/classes/review"
 
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+
 
 @Component({
     moduleId: module.id,
@@ -36,6 +38,15 @@ export class BranchComponent implements OnInit {
     public feedback: string;
 
     
+    /// Show a simple snackbar with no actions
+    showSimple(msg: string) {
+        // Create an instance of SnackBar
+        let snackbar = new SnackBar();
+        snackbar.simple(msg, 'white', '#222').then((args) => {
+                //this.set('jsonResult', JSON.stringify(args));
+        })
+    }
+
     post_review_for_org(){
         this.search_service.post_review_for_bra(this.workspace_id,this.branch_id,this.feedback,this.rating)
         .subscribe((res) => {
@@ -46,9 +57,11 @@ export class BranchComponent implements OnInit {
                 console.log(JSON.stringify( data.headers ) )
                 setString("userheaders",JSON.stringify(data.headers));                
             }
+            this.showSimple("Review Posted")
             console.log(JSON.stringify(res) );
             console.log("reveiw granted")
         }, (error) => {
+            this.showSimple("Something Went Wrong")
             let data = error;
             console.log( data.headers.get("Access-Token"))
             if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!="" ){

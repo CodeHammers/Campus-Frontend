@@ -46,7 +46,10 @@ export class CreateOrganizationComponent implements OnInit {
         return this._sideDrawerTransition;
     }
     
+
+    
     browseForImage(){
+        this.showSimple("processing your image ,please wait")
         let self = this;
         let context = imagepicker.create({
             mode: "single" // use "multiple" for multiple selection
@@ -64,6 +67,7 @@ export class CreateOrganizationComponent implements OnInit {
                     //console.log(imageSource.toBase64String("jpg"));
                     self.manage_service.saveImageToImgur(imageSource.toBase64String("jpg"))
                     .subscribe( (res)=>{
+                        self.showSimple("processing finsihed")
                         console.log("print link")
                         console.log( JSON.stringify( res.json()["data"]["link"]) );
                         self.org.logo =  res.json()["data"]["link"];
@@ -93,7 +97,7 @@ export class CreateOrganizationComponent implements OnInit {
         this.manage_service.createOrganization(this.org)
         .subscribe((data) => {
             console.log( JSON.stringify( data) );
-            
+            this.showSimple("Organization Created!")
             console.log("success")
             //token exhange 
             //if new token introduced ,update my token
@@ -106,6 +110,7 @@ export class CreateOrganizationComponent implements OnInit {
             this.routerExtensions.navigate(["manage"]);            
 
         }, (error) => {
+        
             this.showSimple("Your data is Invalid ,please consider a review");
             console.log("shit happen !");
             console.log( JSON.stringify( error ) );

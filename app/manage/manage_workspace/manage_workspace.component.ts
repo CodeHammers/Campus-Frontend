@@ -5,6 +5,7 @@ import { ManageService } from "../shared/services/manage.service"
 import { setString, getString, getNumber, setNumber } from "tns-core-modules/application-settings/application-settings";
 
 import { Branch } from "../shared/classes/branch"
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
 
 
 @Component({
@@ -27,6 +28,17 @@ export class ManageWorkspaceComponent implements OnInit {
         this.branches = [];
     }
     
+
+    /// Show a simple snackbar with no actions
+    showSimple(msg: string) {
+        // Create an instance of SnackBar
+        let snackbar = new SnackBar();
+        snackbar.simple(msg, 'white', '#222').then((args) => {
+                //this.set('jsonResult', JSON.stringify(args));
+        })
+    }
+
+
     @ViewChild("drawer") drawerComponent: RadSideDrawerComponent;
 
     private _sideDrawerTransition: DrawerTransitionBase;
@@ -79,7 +91,7 @@ export class ManageWorkspaceComponent implements OnInit {
             //token exhange 
             //if new token introduced ,update my token
             console.log("branches Saved Success")
-
+            this.showSimple("Branch Created!")
             console.log( data.headers.get("Access-Token"))
             if(data.headers.get("Access-Token")!=undefined && data.headers.get("Access-Token")!=null && data.headers.get("Access-Token")!=""  ){
                 console.log("update token");
@@ -89,6 +101,7 @@ export class ManageWorkspaceComponent implements OnInit {
             
 
         }, (error) => {
+            this.showSimple("Something Went Wrong")
             console.log("shit happen !");
             console.log(getString("userheaders","none"))
             setString("userheaders","none");

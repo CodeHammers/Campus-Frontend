@@ -9,6 +9,8 @@ import { Branch } from "../shared/classes/branch"
 import { Workspace } from "../shared/classes/workspaces";
 import { getNumber, setNumber } from "tns-core-modules/application-settings/application-settings";
 
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+
 
 @Component({
     moduleId: module.id,
@@ -36,6 +38,15 @@ export class WorkspaceComponent implements OnInit {
     /* ***********************************************************
     * Use the sideDrawerTransition property to change the open/close animation of the drawer.
     *************************************************************/
+    /// Show a simple snackbar with no actions
+    showSimple(msg: string) {
+        // Create an instance of SnackBar
+        let snackbar = new SnackBar();
+        snackbar.simple(msg, 'white', '#222').then((args) => {
+                //this.set('jsonResult', JSON.stringify(args));
+        })
+    }
+
 
     transfertobranch(id: number){
         console.log("-----------------><---------------")

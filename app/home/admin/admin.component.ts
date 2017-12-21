@@ -143,15 +143,27 @@ export class AdminComponent  implements OnInit {
         .subscribe(
             (data)=>{
                console.log("added admin")
+               this.showSimple("User Added as Admin")
                console.log(JSON.stringify(data))
             
             },
             (error)=>{
                console.log("shit japen")
+               this.showSimple("something Went Wrong")
                console.log(error)
             }
         )
 
+    }
+
+
+    /// Show a simple snackbar with no actions
+    showSimple(msg: string) {
+        // Create an instance of SnackBar
+        let snackbar = new SnackBar();
+        snackbar.simple(msg, 'white', '#222').then((args) => {
+                //this.set('jsonResult', JSON.stringify(args));
+        })
     }
 
     deleteWorkspace(w_id:number){
@@ -161,9 +173,11 @@ export class AdminComponent  implements OnInit {
             (data)=>{
                 console.log(JSON.stringify(data))
                 if(data.status == 204){
+                    this.showSimple("Workspace Deleted")
                     console.log("success")
                 }
                 else{
+                    this.showSimple("Something Went Wrong")
                     
                     console.log("fuck ba2a")
                 }
@@ -198,10 +212,11 @@ export class AdminComponent  implements OnInit {
             (data)=>{
                 console.log(JSON.stringify(data))
                 if(data.status == 204){
+                    this.showSimple("Organization Deleted")
                     console.log("success")
                 }
                 else{
-                    
+                    this.showSimple("Something Went Wrong")
                     console.log("fuck ba2a")
                 }
             }
@@ -237,8 +252,10 @@ export class AdminComponent  implements OnInit {
                 console.log(JSON.stringify(data))
                 if(data.status == 204){
                     console.log("success")
+                    this.showSimple("User Deleted")
                 }
                 else{
+                    this.showSimple("Something Went Wrong")
                     
                     console.log("fuck ba2a")
                 }

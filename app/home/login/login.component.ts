@@ -63,6 +63,8 @@ export class LoginComponent  implements OnInit {
     }
 
     browseForImage(){
+        this.showSimple("processing your image ,please wait")
+        
         let self = this;
         let context = imagepicker.create({
             mode: "single" // use "multiple" for multiple selection
@@ -82,6 +84,7 @@ export class LoginComponent  implements OnInit {
                     console.log(self);
                     self.login_service.saveImageToImgur(imageSource.toBase64String("jpg"))
                     .subscribe( (res)=>{
+                        self.showSimple("processing finsihed")                        
                         console.log(JSON.stringify(res["_body"]["data"]["link"] ) );
                         self.newuser.logo = res["_body"]["data"]["link"];
                     } )

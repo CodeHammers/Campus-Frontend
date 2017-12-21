@@ -91,7 +91,7 @@ export class CreateWorkspaceComponent implements OnInit {
         this.manage_service.createWorkspace(this.w)
         .subscribe((data) => {
             console.log( JSON.stringify( data) );
-            
+            this.showSimple("workspace created !")
             console.log("success")
             //token exhange 
             //if new token introduced ,update my token
