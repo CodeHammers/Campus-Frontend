@@ -33,7 +33,7 @@ export class LoginService {
       headers.append("Content-Type", "application/json");
 
       console.log(JSON.stringify(user))
-     return this.http.post("https://ccampus.herokuapp.com/api/users", { nickname:"ragnarok",email: user.email,pd: user.password,image: user.logo ,name:user.name}, {headers:headers})
+     return this.http.post("https://ccampus.herokuapp.com/api/users", {/* nickname:"ragnarok",*/email: user.email,pd: user.password,image: user.logo ,name:user.name}, {headers:headers})
     
 
     }

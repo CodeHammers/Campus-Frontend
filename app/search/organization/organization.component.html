@@ -56,7 +56,10 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                     <Label text='Phone:' class="h2 m-l-10" style="font-weight: bold" textwrap=true></Label>
                     <Label [text]='organization.phone' class="h3 m-l-10" textwrap=true></Label>
                     
-                        <TextField hint="your constructive review" [(ngModel)]="feedback"></TextField>
+                        <StackLayout orientation="horizontal">
+                            <TextField hint="your constructive review" width="81%" [(ngModel)]="feedback"></TextField>
+                            <ListPicker [items]="[1,2,3,4,5,6,7,8,9,10]" [(ngModel)]="rating"></ListPicker>
+                        </StackLayout>
                         <Button text="Add Review" (tap)="post_review_for_org()" ></Button>
                         <ListView [items]="reviews" >
                             <ng-template let-item="item" let-odd="odd" let-even="even">

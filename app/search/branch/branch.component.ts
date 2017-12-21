@@ -48,6 +48,7 @@ export class BranchComponent implements OnInit {
     }
 
     post_review_for_org(){
+        console.log(this.rating)
         this.search_service.post_review_for_bra(this.workspace_id,this.branch_id,this.feedback,this.rating)
         .subscribe((res) => {
             let data = res;
@@ -142,6 +143,7 @@ export class BranchComponent implements OnInit {
                 
                 //this.workshops.push(new Workshop(workshop.id, workshop.title, workshop.description, workshop.date, workshop.time));
             });
+            console.log(this.reviews.length)
             console.log("<<<------------------------Reviews In Search -------------------------->>>")            
 
         }, (error) => {

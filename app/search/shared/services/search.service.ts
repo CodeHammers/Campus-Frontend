@@ -216,7 +216,7 @@ export class SearchService {
 
     }
 
-    post_review_for_org(org_id: number,feedback:string){
+    post_review_for_org(org_id: number,feedback:string,rating:number){
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("token-type", "Bearer");
@@ -232,7 +232,7 @@ export class SearchService {
         }
         let data ={
             feedback: feedback,
-            rating: 5
+            rating: rating
         }
 
         //https://ccampus.herokuapp.com/api/branches

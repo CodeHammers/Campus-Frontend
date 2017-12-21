@@ -29,7 +29,7 @@ export class OrganizationComponent implements OnInit {
     public workshops: Array<Workshop>;
 
     public reviews : Array<Review>;
-
+    public rating : number;
     public organization: Organization;
     /* ***********************************************************
     * Use the @ViewChild decorator to get a reference to the drawer component.
@@ -56,7 +56,7 @@ export class OrganizationComponent implements OnInit {
 
 
     post_review_for_org(){
-        this.search_service.post_review_for_org(this.organiztion_id,this.feedback)
+        this.search_service.post_review_for_org(this.organiztion_id,this.feedback,this.rating)
         .subscribe((res) => {
             let data = res;
             console.log( data.headers.get("Access-Token"))

@@ -33,8 +33,8 @@ it shouldn't have any other siblings other than the <ActionBar> component.
 
     <!--(selectedIndexChange)="onIndexChanged($event)"-->
     <TabView selectedIndex="0" sdkExampleTitle sdkToggleNavButton tkMainContent>
-
-        <StackLayout *tabItem="{title: 'Details'}">
+        <ScrollView *tabItem="{title: 'Details'}">
+        <StackLayout >
 
             <image [src]='branch.imagelink'></image>
 
@@ -47,11 +47,16 @@ it shouldn't have any other siblings other than the <ActionBar> component.
             <Label text='Phone:' class="h2 m-l-10" textwrap=true></Label>
             <Label [text]='branch.phone' class="h3 m-l-10" textwrap=true></Label>
 
+            <StackLayout orientation="horizontal">
+                <TextField hint="your constructive review" width="81%" [(ngModel)]="feedback"></TextField>
+                <ListPicker [items]="[1,2,3,4,5,6,7,8,9,10]" [(ngModel)]="rating"></ListPicker>
+            </StackLayout>
 
-            <TextField hint="your constructive review" [(ngModel)]="feedback"></TextField>
-            <TextField hint="Rating" [(ngModel)]="rating"></TextField>
             
             <Button text="Add Review" (tap)="post_review_for_org()" ></Button>
+            <TextView text="Reviews" editable="false"></TextView>
+            
+            <ScrollView>
             <ListView [items]="reviews" >
                 <ng-template let-item="item" let-odd="odd" let-even="even">
                   <StackLayout>
@@ -66,8 +71,10 @@ it shouldn't have any other siblings other than the <ActionBar> component.
                   </StackLayout>
                 </ng-template>
             </ListView>
+        </ScrollView>
 
         </StackLayout>
+    </ScrollView>
 
         <StackLayout *tabItem="{title: 'Reserve'}">
 
